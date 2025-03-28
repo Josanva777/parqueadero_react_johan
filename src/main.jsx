@@ -5,6 +5,6 @@ import CreateAccount from './CreateAccount'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <CreateAccount/>
+    <Login/>
   </StrictMode>,
 )
