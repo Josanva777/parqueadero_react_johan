@@ -13,7 +13,12 @@
     "@tailwindcss/vite": "^4.0.15",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+<<<<<<< HEAD
     "sweetalert2": "^11.19.1",
+=======
+    "react-icons": "^5.5.0",
+    "react-router-dom": "^7.4.0",
+>>>>>>> a4d7a4a1ae784f4f1092acec7f3dfc4cfe620481
     "tailwindcss": "^4.0.15"
   },
   "devDependencies": {

@@ -1,0 +1,161 @@
+.sidebar {
+  width: 16rem;
+  background-color: #ffffff;
+  box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 4rem; /* Debajo del header */
+  left: 0;
+  height: calc(100vh - 4rem);
+  z-index: 900;
+  transition: transform 0.3s ease-in-out;
+}
+
+.dark .sidebar {
+  background-color: #2d3748;
+}
+
+.sidebar-content {
+  padding: 1.5rem;
+  color: purple;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.dark .sidebar-content {
+  color: #a0aec0;
+}
+
+.hamburger-btn {
+  display: none;
+  background: purple;
+  border: none;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: #ffffff;
+  border-radius: 50%;
+  transition: transform 0.3s ease, background-color 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1001;
+}
+
+.hamburger-btn:hover {
+  transform: scale(1.1);
+  background: purple;
+}
+
+.sidebar-menu {
+  margin-top: 1rem;
+  list-style: none;
+  padding: 0;
+  flex-grow: 1;
+}
+
+.sidebar-menu li {
+  padding: 0.75rem 0;
+  transition: background-color 0.2s ease;
+}
+
+.sidebar-menu li:hover {
+  background-color: rgba(128, 0, 128, 0.103);
+  border-radius: 8px;
+}
+
+.dark .sidebar-menu li:hover {
+  background-color: #374151;
+}
+
+.sidebar-menu a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: rgb(44, 0, 44);
+  font-weight: 500;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.dark .sidebar-menu a {
+  color: #a0aec0;
+}
+
+.sidebar-menu a:hover {
+  color: purple;
+  transform: translateX(5px);
+}
+
+.icon {
+  margin-right: 0.75rem;
+  color: purple;
+  font-size: 1.25rem;
+}
+
+.dark .icon {
+  color: #6b46c1;
+}
+
+.sidebar-footer {
+  padding: 1.5rem 0;
+}
+
+.sidebar-footer-link {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  background-color: rgb(212, 92, 212);
+  color: #ffffff;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.sidebar-footer-link:hover {
+  background-color: rgb(177, 80, 177);
+  transform: scale(1.02);
+}
+
+.dark .sidebar-footer-link {
+  background-color: rgb(197, 107, 197);
+}
+
+.dark .sidebar-footer-link:hover {
+  background-color: rgb(196, 72, 196);
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .hamburger-btn {
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    width: 14rem;
+  }
+
+  .sidebar-menu li {
+    padding: 0.5rem 0;
+  }
+
+  .sidebar-footer {
+    padding: 1rem 0;
+  }
+
+  .hamburger-btn {
+    font-size: 1.2rem;
+    padding: 0.4rem;
+  }
+}

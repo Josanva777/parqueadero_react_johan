@@ -1,0 +1,144 @@
+.header-container {
+  padding: 0.75rem 1rem;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid #e5e7eb;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.dark .header-container {
+  background-color: #1f2937;
+  border-bottom: 1px solid #374151;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+}
+
+.header-logo-img {
+  height: 2.5rem;
+  width: auto;
+  transition: transform 0.2s ease;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header-darkmode-toggle {
+  padding: 0.5rem;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+
+.header-darkmode-toggle:hover {
+  transform: scale(1.1);
+}
+
+
+
+.header-darkmode-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #6b7280;
+}
+
+.dark .header-darkmode-icon {
+  color: #d1d5db;
+}
+
+.header-darkmode-toggle:hover .header-darkmode-icon {
+  color: rgb(129, 56, 129);
+}
+
+.header-logout {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+
+
+.header-logout:hover {
+  transform: scale(1.05);
+}
+
+
+
+.header-logout-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #6b7280;
+}
+
+.dark .header-logout-icon {
+  color: #d1d5db;
+}
+
+.header-logout:hover .header-logout-icon {
+  color: #dc2626;
+}
+
+.header-logout-text {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.dark .header-logout-text {
+  color: #d1d5db;
+}
+
+.header-logout:hover .header-logout-text {
+  color: #dc2626;
+}
+
+@media (max-width: 768px) {
+  .header-container {
+    padding: 0.5rem;
+  }
+  .header-logo-img {
+    height: 2rem;
+  }
+  .header-actions {
+    gap: 0.5rem;
+  }
+  .header-logout-text {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-logo-img {
+    height: 1.8rem;
+  }
+  .header-darkmode-icon,
+  .header-logout-icon {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+}
