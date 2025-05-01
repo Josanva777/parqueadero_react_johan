@@ -1,4 +1,4 @@
-import fondo from '../assets/img/fondo.jpg';
+import fondo from '../../public/fondo.jpg';
 import { useState } from 'react';
 import { users } from '../service/database.js';
 import { generateToken, alertNotification } from '../helpers/funciones.js';
@@ -8,6 +8,9 @@ function Login() {
   let redirection = useNavigate();
   const [getUser, setUser] = useState('');
   const [getPassword, setPassword] = useState('');
+
+  localStorage.removeItem('token');
+  localStorage.removeItem('user');
 
   function searchUser() {
     let user = users.find(item => getUser === item.user && getPassword === item.password);
@@ -25,13 +28,11 @@ function Login() {
         alertNotification('¡Exitoso!', 'Bienvenido al sistema', 'success');
         redirection('/formularioregistro');
       } else {
-        console.log("Cree el usuario")
+        alertNotification('¡Información!', 'Contraseña o Usuario incorrecto. Si no tienes cuenta ¡Cree una!', 'info');
       }
     } else {
       alertNotification('Fallido!', 'Rellene todos los campos', 'error')
     }
-
-
   }
 
   return (
