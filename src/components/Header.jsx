@@ -21,7 +21,9 @@ function Header() {
   }, [isDarkMode]);
 
   const handleLogout = () => {
-    navigate("/login");
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/");
   };
 
   return (

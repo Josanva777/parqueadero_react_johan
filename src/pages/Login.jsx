@@ -73,15 +73,6 @@ function Login() {
                 type="submit"
                 value="Entrar"
               />
-
-              <p className="mt-4">
-                <a
-                  className="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
-                  href="./create-account.html"
-                >
-                  Crear una cuenta
-                </a>
-              </p>
             </form>
           </div>
         </div>
