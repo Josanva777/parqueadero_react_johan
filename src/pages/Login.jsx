@@ -22,13 +22,13 @@ function Login() {
         let accesToken = generateToken();
         localStorage.setItem("token", accesToken);
         localStorage.setItem("user", JSON.stringify(searchUser()));
-        alertNotification('Bienvenido al sistema', true);
+        alertNotification('¡Exitoso!', 'Bienvenido al sistema', 'success');
         redirection('/formularioregistro');
       } else {
         console.log("Cree el usuario")
       }
     } else {
-      alertNotification("Rellene todos los campos", false)
+      alertNotification('Fallido!', 'Rellene todos los campos', 'error')
     }
 
 
