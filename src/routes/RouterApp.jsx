@@ -1,18 +1,15 @@
 import { Navigate } from "react-router-dom";
-import FormularioRegistro from "../pages/FormularioRegistro";
-import Login from "../pages/Login"; 
+import FormularioRegistro from '../pages/FormularioRegistro';
+import Login from '../pages/Login'; 
+import RutaProtegida from '../components/RutaProtegida.jsx';
 
 export let routes = [
   {
     path: '/',
-    element: <Navigate to="/Login" replace />, 
-  },
-  {
-    path: '/login',
-    element: <Login />,
+    element: <Login /> 
   },
   {
     path: '/formularioregistro',
-    element: <FormularioRegistro />,
-  },
+    element: <RutaProtegida protect={<FormularioRegistro/>} />
+  }
 ];
