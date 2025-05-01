@@ -5,7 +5,7 @@ import Login from "../pages/Login";
 export let routes = [
   {
     path: '/',
-    element: <Navigate to="/formularioregistro" replace />, 
+    element: <Navigate to="/Login" replace />, 
   },
   {
     path: '/login',
