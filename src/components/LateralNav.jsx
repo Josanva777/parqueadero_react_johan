@@ -62,6 +62,11 @@ function LateralNav() {
                 <span>Politicas</span>
               </a>
             </li>
+            <li>
+              <a href="/tablas">
+                <span>Tablas</span>
+              </a>
+            </li>
           </ul>
           <div className="sidebar-footer">
             {!isRegistroRoute && (
