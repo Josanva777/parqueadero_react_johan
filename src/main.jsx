@@ -1,17 +1,10 @@
-<<<<<<< HEAD
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import Login from './Login'
-import CreateAccount from './CreateAccount'
-=======
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { routes } from './routes/RouterApp';
 import "./assets/css/tailwind.output.css";
->>>>>>> a4d7a4a1ae784f4f1092acec7f3dfc4cfe620481
-
+import Login from './pages/Login';
 
 // Creación del router con las rutas definidas
 const router = createBrowserRouter(routes);
