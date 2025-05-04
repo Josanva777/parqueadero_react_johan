@@ -1,16 +1,26 @@
 import fondo from '../../public/fondo.jpg';
-import { useState } from 'react';
-import { users } from '../service/database.js';
+import { useEffect, useState } from 'react';
 import { generateToken, alertNotification } from '../helpers/funciones.js';
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
   let redirection = useNavigate();
+  const [users, setUsers] = useState([]);
   const [getUser, setUser] = useState('');
   const [getPassword, setPassword] = useState('');
 
   localStorage.removeItem('token');
   localStorage.removeItem('user');
+
+  function getUsers() {
+    fetch(apiUsers)
+      .then(response => response.json())
+      .then(result => setUsers(result));
+  }
+
+  useEffect(() => {
+    getUsers();
+  }, [])
 
   function searchUser() {
     let user = users.find(item => getUser === item.user && getPassword === item.password);
