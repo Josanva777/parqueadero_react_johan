@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import LateralNav from '../components/LateralNav';
 import './CreateAccount.css';
 import { alertNotification } from '../helpers/funciones';
+import Table from '../components/Table';
 const apiUsers = 'http://localhost:3000/users';
 
 function CreateAccount() {
@@ -40,7 +41,7 @@ function CreateAccount() {
       id: users.length + 1,
       rol: parseInt(formData.rol),
       user: formData.user,
-      email: formData.email,
+      email: formData.email.toLowerCase(),
       password: formData.password,
     }
 
@@ -82,15 +83,18 @@ function CreateAccount() {
     }
   };
 
+  console.log(users)
+
   return (
-    <conte className="page-container">
+    <section className="page-container">
       <Header />
       <div className="main-container">
         <LateralNav />
         <main className="content-container">
           <div className="form-wrapper">
             <h1 className="form-title">
-              <FaUser className="form-icon" /> Registro de Usuarios
+              <FaUser className="form-icon" />
+              Registro de Usuarios
             </h1>
             <form id="formularioRegistro" onSubmit={handleSubmit}>
               <div className="form-grid">
@@ -174,7 +178,7 @@ function CreateAccount() {
           </div>
         </main>
       </div>
-    </conte>
+    </section>
   );
 }
 
