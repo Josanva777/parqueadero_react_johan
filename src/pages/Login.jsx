@@ -2,6 +2,7 @@ import fondo from '../../public/fondo.jpg';
 import { useEffect, useState } from 'react';
 import { generateToken, alertNotification } from '../helpers/funciones.js';
 import { useNavigate } from 'react-router-dom';
+const apiUsers = 'http://localhost:3000/users';
 
 function Login() {
   let redirection = useNavigate();
@@ -30,7 +31,7 @@ function Login() {
   function login(e) {
     e.preventDefault();
 
-    if (getUser !== '' && getPassword !== '' ) {
+    if ( getUser !== '' && getPassword !== '' ) {
       if (searchUser()) {
         let accesToken = generateToken();
         localStorage.setItem("token", accesToken);
