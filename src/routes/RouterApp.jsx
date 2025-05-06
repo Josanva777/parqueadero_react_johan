@@ -1,18 +1,18 @@
-import { Navigate } from "react-router-dom";
-import FormularioRegistro from '../pages/FormularioRegistro';
-import Login from '../pages/Login'; 
+import Login from '../pages/Login';
 import RutaProtegida from '../components/RutaProtegida.jsx';
 import NotFound from "../pages/NotFound.jsx";
+import CreateAccount from "../pages/createAccount.jsx";
 import TableExample from "../pages/TableExample.jsx";
+import MonthlyPayment from '../pages/MonthlyPayment.jsx';
 
 export let routes = [
   {
     path: '/',
-    element: <Login /> 
+    element: <Login />
   },
   {
     path: '/formularioregistro',
-    element: <RutaProtegida protect={<FormularioRegistro/>} />
+    element: <RutaProtegida protect={<CreateAccount />} />
   },
   {
     path: '*',
@@ -22,9 +22,14 @@ export let routes = [
     path: '/tablas',
     element: <TableExample props={{
       header: ['Nombre', 'Apellido', 'Edad', 'Email'],
-      body: {nombre:'Juan', apellido:'Pérez', edad:30, email:'correo@correo.com'}
-      
+      body: { nombre: 'Juan', apellido: 'Pérez', edad: 30, email: 'correo@correo.com' }
+
     }
     } />
+  },
+  {
+    path: '/mensualidad',
+    element: <MonthlyPayment />
   }
+
 ];

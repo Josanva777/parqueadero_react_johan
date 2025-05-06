@@ -3,7 +3,7 @@ import LateralNav from "../components/LateralNav";
 import Table from "../components/Table";
 function TableExample() {
     let header = ['Nombre', 'Apellido', 'Edad', 'Email'];
-    let body = {nombre:'Juan', apellido:'Pérez', edad:30, email:'correo@correo.com'}
+    let body = [{nombre:'Juan', apellido:'Pérez', edad:30, email:'correo@correo.com'},]
     return (
         <div className="page-container">
             <Header />
