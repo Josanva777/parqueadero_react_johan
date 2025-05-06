@@ -1,0 +1,151 @@
+.page-container-entrada {
+    height: 100vh;
+    /* Cambiado de min-height a height para fijar el tamaño */
+    display: flex;
+    flex-direction: column;
+    background: #f0f2f5;
+    overflow: hidden;
+    /* Evita scroll en el contenedor principal */
+}
+
+.dark .page-container-entrada {
+    background: #1a1d29;
+}
+
+.main-container-entrada {
+    display: flex;
+    flex: 1;
+    height: calc(100vh - 4rem);
+    /* Resta la altura del header fijo */
+    padding-top: 4rem;
+    /* Espacio para el header fijo */
+    overflow: hidden;
+    /* Evita scroll en este nivel */
+}
+
+.content-container-entrada {
+    flex: 1;
+    padding: 1rem;
+    margin-left: 16rem;
+    /* Espacio para el sidebar en escritorio */
+    overflow-y: auto;
+    /* Scroll solo si es necesario, pero lo ajustaremos para evitarlo */
+    height: 100%;
+    /* Ocupa toda la altura disponible */
+    display: flex;
+    flex-direction: column;
+}
+
+.entrada-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 8px;
+    padding: 1rem;
+    /* Reducido para ahorrar espacio */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    flex-grow: 1;
+    /* Permite que crezca para llenar el espacio */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* Evita scroll dentro del formulario */
+}
+
+.dark .entrada-wrapper {
+    background: #242731;
+}
+
+.form-group-entrada {
+    display: flex;
+    justify-content: space-around;
+}
+
+.input-matricula {
+    display: flex;
+    width: 100%;
+    height: 10rem
+}
+
+.input-matricula input {
+    width: 100%;
+    height: 100%;
+    font-size: 6rem;
+    text-align: center;
+    background-color: rgba(128, 0, 128, 0.068);
+    text-transform: uppercase;
+    border-radius: 25px;
+    padding: 0px 1rem;
+}
+
+.input-matricula input::placeholder {
+    color: rgba(128, 0, 128, 0.553);
+    /* Cambia a cualquier color que desees */
+    opacity: 1;
+    /* Asegura que se vea claramente */
+}
+
+.list {
+    max-width: 20rem;
+    min-width: 20rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.selector-tarifa {
+    display: flex;
+    flex-direction: column;
+}
+
+.selector-tarifa legend {
+    font-size: 17px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0px;
+    color: purple;
+}
+
+.selector-tarifa aside {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.moto,
+.carro {
+    height: 25px;
+}
+
+.reset {
+    text-align: center;
+    margin-top: 12px;
+}
+
+.reset input {
+    background-color: purple;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.reset input:hover {
+    background-color: #c403c4;
+    transform: scale(1.05);
+}
+
+.table-section-entrada {
+    margin-top: 2rem;
+}
+
+.delete-icon {
+    color: purple;
+    height: 25px;
+}

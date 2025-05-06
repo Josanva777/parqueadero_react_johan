@@ -7,6 +7,7 @@ import { useState } from "react";
 function LateralNav() {
   const location = useLocation();
   const isRegistroRoute = location.pathname === "/formularioregistro";
+  const isEntradaRoute = location.pathname === "/Entrada";
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -27,10 +28,10 @@ function LateralNav() {
                 <span>Disponibilidad</span>
               </a>
             </li>
-            <li>
-              <a href="#">
+            <li className={isEntradaRoute ? "active" : ""}>
+              <Link to="/Entrada">
                 <span>Entrada</span>
-              </a>
+              </Link>
             </li>
             <li>
               <a href="#">

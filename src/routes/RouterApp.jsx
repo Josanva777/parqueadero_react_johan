@@ -1,9 +1,9 @@
-import { Navigate } from "react-router-dom";
 import FormularioRegistro from '../pages/FormularioRegistro';
 import Login from '../pages/Login'; 
 import RutaProtegida from '../components/RutaProtegida.jsx';
 import NotFound from "../pages/NotFound.jsx";
 import TableExample from "../pages/TableExample.jsx";
+import Entrada from "../pages/Entrada.jsx";
 
 export let routes = [
   {
@@ -26,5 +26,9 @@ export let routes = [
       
     }
     } />
+  },
+  {
+    path: '/Entrada',
+    element: <Entrada />
   }
 ];
