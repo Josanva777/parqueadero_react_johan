@@ -49,9 +49,9 @@ function CreateAccount() {
 
     if (formData.rol && formData.user && formData.password && formData.email) {
       if (emailEx.test(formData.email)) {
-        let existUser = !users ? false : users.find(item => formData.user === item.user);
+        let existUser = users.find(item => formData.user === item.user);
         if (!existUser) {
-          let existEmail = !users ? false : users.find(item => formData.email === item.email);
+          let existEmail = users.find(item => formData.email === item.email);
           if (!existEmail) {
             if (formData.password === formData.confirm) {
               fetch(apiUsers, {
@@ -65,7 +65,6 @@ function CreateAccount() {
                 getUsers();
               });
               setFormData({ rol: '', user: '', password: '', email: '', confirm: '' });
-              alertNotification('Exitoso!', 'Usuario registrado', 'success');
             } else {
               alertNotification('Error', 'Las contraseñas no coinciden', 'error');
             }
@@ -82,8 +81,6 @@ function CreateAccount() {
       alertNotification('¡Error!', 'Llene todos los campos', 'error')
     }
   };
-
-  console.log(users)
 
   return (
     <section className="page-container">
