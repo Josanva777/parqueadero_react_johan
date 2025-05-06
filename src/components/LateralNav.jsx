@@ -1,17 +1,22 @@
 import "./LateralNav.css";
 import { FaRegCalendar } from "react-icons/fa";
 import { FiMenu, FiX } from "react-icons/fi";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 function LateralNav() {
   const location = useLocation();
   const isRegistroRoute = location.pathname === "/formularioregistro";
+  const redirection = useNavigate()
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen((prev) => !prev);
   };
+
+  const redirectMonhlyPayment = () =>{
+    redirection('/mensualidad');
+  }
 
   return (
     <>
@@ -38,7 +43,7 @@ function LateralNav() {
               </a>
             </li>
             <li>
-              <a href="#">
+              <a href="#" onClick={redirectMonhlyPayment}>
                 <span>Mensualidad</span>
               </a>
             </li>

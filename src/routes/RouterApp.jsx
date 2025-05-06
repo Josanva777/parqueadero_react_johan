@@ -3,6 +3,7 @@ import RutaProtegida from '../components/RutaProtegida.jsx';
 import NotFound from "../pages/NotFound.jsx";
 import CreateAccount from "../pages/createAccount.jsx";
 import TableExample from "../pages/TableExample.jsx";
+import MonthlyPayment from '../pages/MonthlyPayment.jsx';
 
 export let routes = [
   {
@@ -25,5 +26,10 @@ export let routes = [
 
     }
     } />
+  },
+  {
+    path: '/mensualidad',
+    element: <MonthlyPayment />
   }
+
 ];
