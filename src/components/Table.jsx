@@ -1,3 +1,4 @@
+import {Edit, Trash2 } from 'lucide-react';
 
 function Table({ props }) {
     return (
@@ -13,6 +14,7 @@ function Table({ props }) {
                                     </th>
                                 );
                             })}
+                            <th className="px-4 py-3">Acciones</th>
                         </tr>
                     </thead>
                     <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
@@ -24,6 +26,14 @@ function Table({ props }) {
                                     </th>
                                 );
                             })}
+                            <th className="px-4 py-3">
+                                <div className="flex p-4 justify-center gap_20">
+                                    <button className="flex items-center gap-2 px-3 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 focus:outline-none">
+                                        <Edit className="w-5 h-5" /></button>
+                                    <button className="flex items-center gap-2 px-3 py-2 bg-red-600 text-white rounded hover:bg-red-700">
+                                        <Trash2 className="w-5 h-5" /></button>
+                                </div>
+                            </th>
                         </tr>
                     </tbody>
                 </table>
