@@ -5,6 +5,7 @@ import CreateAccount from '../pages/CreateAccount.jsx';
 import TableExample from '../pages/TableExample.jsx';
 import Entrada from '../pages/Entrada.jsx';
 import MonthlyPayment from '../pages/MonthlyPayment.jsx';
+import Blank from '../pages/Blank.jsx';
 
 export let routes = [
   {
@@ -33,6 +34,10 @@ export let routes = [
   {
     path: '/mensualidad',
     element: <MonthlyPayment />,
+  },
+  {
+    path: '/blank',
+    element: <Blank />,
   },
   {
     path: '*',
