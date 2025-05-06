@@ -1,72 +1,81 @@
 import "./LateralNav.css";
 import { FaRegCalendar } from "react-icons/fa";
 import { FiMenu, FiX } from "react-icons/fi";
-import { Link, useLocation } from "react-router-dom";
+import { NavLink, Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 function LateralNav() {
   const location = useLocation();
   const isRegistroRoute = location.pathname === "/formularioregistro";
   const isEntradaRoute = location.pathname === "/Entrada";
+  const redirection = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen((prev) => !prev);
   };
 
+  const redirectMonthlyPayment = () => {
+    redirection("/mensualidad");
+  };
+
   return (
     <>
-      <button className="hamburger-btn" onClick={toggleMenu}>
+      <button
+        className="hamburger-btn"
+        onClick={toggleMenu}
+        aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
+      >
         {isOpen ? <FiX /> : <FiMenu />}
       </button>
       <aside className={`sidebar ${isOpen ? "open" : ""}`}>
         <div className="sidebar-content">
           <ul className="sidebar-menu">
             <li>
-              <a href="#">
+              <NavLink to="/disponibilidad">
                 <FaRegCalendar className="icon" />
                 <span>Disponibilidad</span>
-              </a>
+              </NavLink>
             </li>
-            <li className={isEntradaRoute ? "active" : ""}>
-              <Link to="/Entrada">
+            <li>
+              <NavLink to="/Entrada" activeClassName="active">
                 <span>Entrada</span>
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <a href="#">
+              <NavLink to="/salida">
                 <span>Salida</span>
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a href="#">
+              <NavLink to="/mensualidad">
                 <span>Mensualidad</span>
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a href="#">
+              <NavLink to="/reserva">
                 <span>Reserva</span>
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a href="#">
+              <NavLink to="/reportes">
                 <span>Reportes</span>
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a href="#">
+              <NavLink to="/ayuda">
                 <span>Ayuda</span>
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a href="#">
+              <NavLink to="/politicas">
                 <span>Politicas</span>
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a href="/tablas">
+              <NavLink to="/tablas">
                 <span>Tablas</span>
-              </a>
+              </NavLink>
             </li>
           </ul>
           <div className="sidebar-footer">
