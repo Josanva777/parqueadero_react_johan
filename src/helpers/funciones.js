@@ -1,10 +1,10 @@
 import Swal from "sweetalert2";
 
-export function alertNotification(hla, message, icon) {
+export function alertNotification(title, message, icon) {
     // title = '¡Exitoso!' || '¡Fallido!'
     // icon: 'success' || 'error' || 'info'
     Swal.fire({
-      title: hla ,
+      title: title ,
       text: message,
       icon: icon,
       showConfirmButton: false,
