@@ -58,8 +58,8 @@ function LateralNav() {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/reportes">
-                <span>Reportes</span>
+              <NavLink to="/reporte">
+                <span>Reporte</span>
               </NavLink>
             </li>
             <li>
