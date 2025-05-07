@@ -1,6 +1,16 @@
-import {Edit, Trash2 } from 'lucide-react';
+import { Edit, Trash2 } from 'lucide-react';
 
 function Table({ props }) {
+    function createColumns(row) {
+        return (
+            Object.values(row).map((column, index) => {
+                return (
+                    <th className="px-4 py-3" key={index}>{column}</th>
+                );
+            })
+        )
+    }
+
     return (
         <div className="w-full mb-8 overflow-hidden rounded-lg shadow-xs">
             <div className="w-full overflow-x-auto">
@@ -18,23 +28,21 @@ function Table({ props }) {
                         </tr>
                     </thead>
                     <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                        <tr className="text-gray-700 dark:text-gray-400">
-                            {Object.values(props.body).map((element, index) => {
-                                return (
-                                    <th className="px-4 py-3" key={index}>
-                                        {element}
+                        {props.body.map((row, index) => {
+                            return (
+                                <tr className="text-gray-700 dark:text-gray-400" key={index}>
+                                    {createColumns(row)}
+                                    <th className="px-4 py-3">
+                                        <div className="flex p-4 justify-center gap_20">
+                                            <button className="flex items-center gap-2 px-3 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 focus:outline-none">
+                                                <Edit className="w-5 h-5" /></button>
+                                            <button className="flex items-center gap-2 px-3 py-2 bg-red-600 text-white rounded hover:bg-red-700">
+                                                <Trash2 className="w-5 h-5" /></button>
+                                        </div>
                                     </th>
-                                );
-                            })}
-                            <th className="px-4 py-3">
-                                <div className="flex p-4 justify-center gap_20">
-                                    <button className="flex items-center gap-2 px-3 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 focus:outline-none">
-                                        <Edit className="w-5 h-5" /></button>
-                                    <button className="flex items-center gap-2 px-3 py-2 bg-red-600 text-white rounded hover:bg-red-700">
-                                        <Trash2 className="w-5 h-5" /></button>
-                                </div>
-                            </th>
-                        </tr>
+                                </tr>
+                            );
+                        })}
                     </tbody>
                 </table>
             </div>
