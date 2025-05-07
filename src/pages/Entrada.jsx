@@ -5,11 +5,9 @@ import { MdDelete } from "react-icons/md";
 import "./Entrada.css";
 
 function Entrada() {
-    let header = ['Placa', 'Tarifa', 'Hora Entrada', 'Recibo', 'Eliminar'];
+    let header = ['Placa', 'Tarifa', 'Hora Entrada', 'Recibo'];
     let body = {
-        placa: 'ABC123', tarifa: '$10', horaEntrada: '12:00', recibo: 'Recibo 1', eliminar: <button onClick={() => alert('Eliminar')} className="delete-btn">
-            <MdDelete className="delete-icon" />
-        </button>
+        placa: 'ABC123', tarifa: '$10', horaEntrada: '12:00', recibo: 'Recibo 1'
     };
     return (
         <div className="page-container-entrada">
@@ -23,28 +21,27 @@ function Entrada() {
                                 <input
                                     type="text"
                                     name="matricula"
-                                    placeholder="Matricula"
+                                    placeholder="Placa"
                                     maxlength="6"
                                     required
                                 />
                             </div>
                             <div className="list">
                                 <div className="selector-tarifa">
-
                                     <legend>Tarifa</legend>
                                     <aside className="moto">
-                                        <label for="lmoto">Moto</label>
                                         <input
                                             type="radio"
                                             name="Tarifa"
                                             value="Moto" />
+                                        <label for="lmoto">Moto</label>
                                     </aside>
                                     <aside className="moto">
-                                        <label for="lmoto">Carro</label>
                                         <input
                                             type="radio"
                                             name="Tarifa"
                                             value="Carro" />
+                                        <label for="lmoto">Carro</label>
                                     </aside>
                                 </div>
                                 <div className="reset">
