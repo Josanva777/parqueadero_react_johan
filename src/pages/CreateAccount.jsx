@@ -4,10 +4,13 @@ import Header from '../components/Header';
 import LateralNav from '../components/LateralNav';
 import './CreateAccount.css';
 import { alertNotification } from '../helpers/funciones';
-import Table from '../components/Table';
+import Table from "../components/Table";
 const apiUsers = 'http://localhost:3000/users';
 
 function CreateAccount() {
+  let header = ['nombre', 'apellido', 'edad', 'email', 'hola'];
+  let body = [{nombre:'Juan', apellido:'Pérez', edad:30, email:'correo@correo.com'}]
+
   const [users, setUsers] = useState([]);
   const [formData, setFormData] = useState({
     rol: '',
@@ -36,51 +39,55 @@ function CreateAccount() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const emailEx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     let newUser = {
-      id: users.length + 1,
+      id: users.length > 0 ? users[users.length - 1].id + 1 : 1,
       rol: parseInt(formData.rol),
       user: formData.user,
       email: formData.email.toLowerCase(),
       password: formData.password,
     }
 
-    const emailEx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-    if (formData.rol && formData.user && formData.password && formData.email) {
-      if (emailEx.test(formData.email)) {
-        let existUser = users.find(item => formData.user === item.user);
-        if (!existUser) {
-          let existEmail = users.find(item => formData.email === item.email);
-          if (!existEmail) {
-            if (formData.password === formData.confirm) {
-              fetch(apiUsers, {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(newUser)
-              }).then(() => {
-                alertNotification('¡Exitoso!', 'Usuario creado correctamente', 'success');
-                getUsers();
-              });
-              setFormData({ rol: '', user: '', password: '', email: '', confirm: '' });
-            } else {
-              alertNotification('Error', 'Las contraseñas no coinciden', 'error');
-            }
-          } else {
-            alertNotification('¡Error!', 'Email ya existe', 'error');
-          }
-        } else {
-          alertNotification('¡Error!', 'Usario ya existe', 'error');
-        }
-      } else {
-        alertNotification('¡Error!', 'Email incorrecto', 'error');
-      }
-    } else {
-      alertNotification('¡Error!', 'Llene todos los campos', 'error')
+    if (!formData.user || !formData.confirm || !formData.email || !formData.password || !formData.rol ) {
+      alertNotification('¡Error!', 'Llene todos los campos', 'error');
+      return;
     }
-  };
+
+    if (!emailEx.test(formData.email)) {
+      alertNotification('¡Error!', 'Email incorrecto', 'error');
+      return;
+    }
+
+    let existUser = users.find(item => formData.user === item.user);
+    if (existUser) {
+      alertNotification('¡Error!', 'Usario ya existe', 'error');
+      return;
+    }
+
+    let existEmail = users.find(item => formData.email === item.email);
+    if (existEmail) {
+      alertNotification('¡Error!', 'Email ya existe', 'error');
+      return;
+    }
+
+    if (formData.password !== formData.confirm) {
+      alertNotification('Error', 'Las contraseñas no coinciden', 'error');
+      return;
+    }
+
+    fetch(apiUsers, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newUser)
+    }).then(() => {
+      alertNotification('¡Exitoso!', 'Usuario creado correctamente', 'success');
+      getUsers();
+    });
+    setFormData({ rol: '', user: '', password: '', email: '', confirm: '' });
+  }
 
   return (
     <section className="page-container">
@@ -156,7 +163,6 @@ function CreateAccount() {
                       value={formData.confirm}
                       onChange={handleChange}
                       placeholder="••••••••"
-                      required
                     />
                     <button
                       type="button"
@@ -171,7 +177,8 @@ function CreateAccount() {
               <div className="form-button">
                 <button type="submit">Guardar</button>
               </div>
-            </form>
+            </form> 
+            <Table props={{header:header, body:users}} />
           </div>
         </main>
       </div>

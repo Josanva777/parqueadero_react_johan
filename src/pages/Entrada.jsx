@@ -33,18 +33,20 @@ function Entrada() {
 
                                     <legend>Tarifa</legend>
                                     <aside className="moto">
-                                        <label for="lmoto">Moto</label>
                                         <input
                                             type="radio"
                                             name="Tarifa"
                                             value="Moto" />
+                                        <label for="lmoto">Moto</label>
+
                                     </aside>
                                     <aside className="moto">
-                                        <label for="lmoto">Carro</label>
                                         <input
                                             type="radio"
                                             name="Tarifa"
                                             value="Carro" />
+                                        <label for="lmoto">Carro</label>
+
                                     </aside>
                                 </div>
                                 <div className="reset">

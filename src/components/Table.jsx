@@ -1,6 +1,9 @@
 import {Edit, Trash2 } from 'lucide-react';
 
-function Table({ props }) {
+function Table({props} ) {
+
+    console.log(props.header)
+    console.log(props.header)
     return (
         <div className="w-full mb-8 overflow-hidden rounded-lg shadow-xs">
             <div className="w-full overflow-x-auto">
@@ -19,9 +22,9 @@ function Table({ props }) {
                     </thead>
                     <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                         <tr className="text-gray-700 dark:text-gray-400">
-                            {Object.values(props.body).map((element, index) => {
+                            {props.body.map((element, index) => {
                                 return (
-                                    <th className="px-4 py-3" key={index}>
+                                    <th className="px-4 py-3" key={index}>  
                                         {element}
                                     </th>
                                 );
