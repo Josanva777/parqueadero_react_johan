@@ -2,7 +2,7 @@ import Login from '../pages/Login';
 import RutaProtegida from '../components/RutaProtegida.jsx';
 import NotFound from '../pages/NotFound.jsx';
 import TableExample from '../pages/TableExample.jsx';
-import MonthlyPayment from '../pages/MonthlyPayment.jsx';
+// import MonthlyPayment from '../pages/MonthlyPayment.jsx';
 import Blank from '../pages/Blank.jsx';
 import Disponibilidad from '../pages/Disponibilidad.jsx';
 import Entrada from '../pages/Entrada.jsx';
@@ -59,10 +59,10 @@ export let routes = [
     path: '/tablas',
     element: <RutaProtegida protect={<TableExample />} />,
   },
-  {
-    path: '/mensualidad',
-    element: <MonthlyPayment />,
-  },
+  // {
+  //   path: '/mensualidad',
+  //   element: <MonthlyPayment />,
+  // },
   {
     path: '/blank',
     element: <Blank />,

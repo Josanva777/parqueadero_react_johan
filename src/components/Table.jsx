@@ -1,6 +1,7 @@
 import { Edit, Trash2 } from 'lucide-react';
 
 function Table({ props }) {
+    
     function createColumns(row) {
         return (
             Object.values(row).map((column, index) => {
