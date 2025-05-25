@@ -1,3 +1,5 @@
+
+
 .sidebar {
   width: 16rem;
   background-color: #ffffff;
@@ -16,7 +18,7 @@
 
 .sidebar-content {
   padding: 1.5rem;
-  color: purple;
+  color: rgb(128, 90, 213);
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -28,7 +30,7 @@
 
 .hamburger-btn {
   display: none;
-  background: purple;
+  background: rgb(128, 90, 213);
   border: none;
   font-size: 1.5rem;
   padding: 0.5rem;
@@ -45,7 +47,7 @@
 
 .hamburger-btn:hover {
   transform: scale(1.1);
-  background: purple;
+  background: rgb(128, 90, 213);
 }
 
 .sidebar-menu {
@@ -83,13 +85,13 @@
 }
 
 .sidebar-menu a:hover {
-  color: purple;
+  color: rgb(128, 90, 213);
   transform: translateX(5px);
 }
 
 .icon {
   margin-right: 0.75rem;
-  color: purple;
+  color: rgb(128, 90, 213);
   font-size: 1.25rem;
 }
 
@@ -105,7 +107,7 @@
   display: block;
   width: 100%;
   padding: 0.75rem;
-  background-color: rgb(212, 92, 212);
+  background-color: rgb(128, 90, 213);
   color: #ffffff;
   text-align: center;
   text-decoration: none;
@@ -115,16 +117,16 @@
 }
 
 .sidebar-footer-link:hover {
-  background-color: rgb(177, 80, 177);
+  background-color:rgb(129, 90, 213);
   transform: scale(1.02);
 }
 
 .dark .sidebar-footer-link {
-  background-color: rgb(197, 107, 197);
+  background-color: rgb(129, 90, 213);
 }
 
 .dark .sidebar-footer-link:hover {
-  background-color: rgb(196, 72, 196);
+  background-color: rgb(129, 90, 213);
 }
 
 @media (max-width: 768px) {
