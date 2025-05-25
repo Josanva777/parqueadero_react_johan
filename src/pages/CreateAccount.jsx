@@ -3,13 +3,12 @@ import { FaUser, FaEye, FaEyeSlash } from 'react-icons/fa';
 import Header from '../components/Header';
 import LateralNav from '../components/LateralNav';
 import './CreateAccount.css';
-import { alertNotification } from '../helpers/funciones';
-import Table from "../components/Table";
+import { alertNotification, alertaConfirmar } from '../helpers/funciones';
+import { Edit, Trash2 } from 'lucide-react';
 const apiUsers = 'http://localhost:3000/users';
 
 function CreateAccount() {
-  let header = ['nombre', 'apellido', 'edad', 'email', 'hola'];
-  let body = [{nombre:'Juan', apellido:'Pérez', edad:30, email:'correo@correo.com'}]
+  let header = ['ID', 'ROL', 'USUARIO', 'EMAIL', 'CONTRASEÑA', 'ACCIONES'];
 
   const [users, setUsers] = useState([]);
   const [formData, setFormData] = useState({
@@ -49,7 +48,7 @@ function CreateAccount() {
       password: formData.password,
     }
 
-    if (!formData.user || !formData.confirm || !formData.email || !formData.password || !formData.rol ) {
+    if (!formData.user || !formData.confirm || !formData.email || !formData.password || !formData.rol) {
       alertNotification('¡Error!', 'Llene todos los campos', 'error');
       return;
     }
@@ -87,6 +86,10 @@ function CreateAccount() {
       getUsers();
     });
     setFormData({ rol: '', user: '', password: '', email: '', confirm: '' });
+  }
+
+  function eliminarUsuario(id) {
+    alertaConfirmar(id, getUsers, apiUsers)
   }
 
   return (
@@ -177,8 +180,45 @@ function CreateAccount() {
               <div className="form-button">
                 <button type="submit">Guardar</button>
               </div>
-            </form> 
-            <Table props={{header:header, body:users}} />
+            </form>
+            <div className="w-full mb-8 overflow-hidden rounded-lg shadow-xs mt-8">
+              <div className="w-full overflow-x-auto">
+                <table className="w-full whitespace-no-wrap">
+                  <thead>
+                    <tr className="text-xs font-semibold tracking-wide text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                      {header.map((element, index) => {
+                        return (
+                          <th className="px-4 py-3" key={index}>
+                            {element}
+                          </th>
+                        );
+                      })}
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                    {users.map((row, index) => {
+                      return (
+                        <tr className="text-gray-700 dark:text-gray-400" key={index}>
+                          <th className="px-4 py-3" key={index}>{row.id}</th>
+                          <th className="px-4 py-3" key={index}>{row.rol}</th>
+                          <th className="px-4 py-3" key={index}>{row.user}</th>
+                          <th className="px-4 py-3" key={index}>{row.email}</th>
+                          <th className="px-4 py-3" key={index}>{row.password}</th>
+                          <th className="px-4 py-3">
+                            <div className="flex p-4 justify-center gap_20">
+                              <button className="flex items-center gap-2 px-3 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 focus:outline-none">
+                                <Edit className="w-5 h-5" /></button>
+                              <button onClick={() => eliminarUsuario(row.id)} className="flex items-center gap-2 px-3 py-2 bg-red-600 text-white rounded hover:bg-red-700">
+                                <Trash2 className="w-5 h-5" /></button>
+                            </div>
+                          </th>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </main>
       </div>
