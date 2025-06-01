@@ -1,50 +1,43 @@
 import fondo from '../../public/fondo.jpg';
-import { useEffect, useState } from 'react';
-import { generateToken, alertNotification } from '../helpers/funciones.js';
+import { useState } from 'react';
+import { alertNotification } from '../helpers/funciones.js';
 import { useNavigate } from 'react-router-dom';
-import { users } from '../service/database.js';
-const apiUsers = 'http://localhost:3000/users';
+const apiLogin = 'https://backend-parqueadero-j8gj.onrender.com/api/auth/login';
 
 function Login() {
   let redirection = useNavigate();
-  // const [users, setUsers] = useState([]);
   const [getUser, setUser] = useState('');
   const [getPassword, setPassword] = useState('');
-
-  localStorage.removeItem('token');
-  localStorage.removeItem('user');
-
-  // function getUsers() {
-  //   fetch(apiUsers)
-  //     .then(response => response.json())
-  //     .then(result => setUsers(result));
-  // }
-
-  // useEffect(() => {
-  //   getUsers();
-  // }, [])
-
-  function searchUser() {
-    let user = users.find(item => getUser === item.user && getPassword === item.password);
-    return user;
-  }
 
   function login(e) {
     e.preventDefault();
 
-    if ( getUser !== '' && getPassword !== '' ) {
-      if (searchUser()) {
-        let accesToken = generateToken();
-        localStorage.setItem("token", accesToken);
-        localStorage.setItem("user", JSON.stringify(searchUser()));
-        alertNotification('¡Exitoso!', 'Bienvenido al sistema', 'success');
-        redirection('/formularioregistro');
-      } else {
-        alertNotification('¡Información!', 'Contraseña o Usuario incorrecto. Si no tienes cuenta ¡Cree una!', 'info');
-      }
-    } else {
-      alertNotification('Fallido!', 'Rellene todos los campos', 'error')
-    }
+    fetch(apiLogin, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        userName: getUser,
+        password: getPassword
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (!data.success) {
+          alertNotification('Error!', data.message, 'error');
+          return
+        }
+
+        guardarLocalStorge(data)
+      })
+  }
+
+  function guardarLocalStorge(data) {
+    localStorage.setItem("token", JSON.stringify(data.result));
+    localStorage.setItem("user", JSON.stringify(getUser));
+    alertNotification('¡Exitoso!', 'Bienvenido al sistema', 'success');
+    redirection('/formularioregistro');
   }
 
   return (
