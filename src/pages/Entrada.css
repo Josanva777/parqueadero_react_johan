@@ -61,7 +61,6 @@
 
 .form-group-entrada {
     display: flex;
-    justify-content: space-evenly;
 }
 
 .input-matricula {
@@ -71,7 +70,7 @@
     height: 10rem
 }
 
-.input-matricula input {
+.inputmatri {
     width: 70%;
     height: 100%;
     font-size: 3rem;
@@ -82,12 +81,6 @@
     padding: 0px 1rem;
 }
 
-.input-matricula input::placeholder {
-    color: rgba(0, 0, 0, 0.458);
-    /* Cambia a cualquier color que desees */
-    opacity: 1;
-    /* Asegura que se vea claramente */
-}
 
 .list {
     max-width: 20rem;
@@ -95,10 +88,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    align-items: start;
 }
-
-
 
 .selector-tarifa {
     display: flex;

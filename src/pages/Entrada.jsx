@@ -1,14 +1,8 @@
 import Header from "../components/Header";
 import LateralNav from "../components/LateralNav";
-import Table from "../components/Table";
-import { MdDelete } from "react-icons/md";
 import "./Entrada.css";
 
 function Entrada() {
-    let header = ['Placa', 'Tarifa', 'Hora Entrada', 'Recibo'];
-    let body = {
-        placa: 'ABC123', tarifa: '$10', horaEntrada: '12:00', recibo: 'Recibo 1'
-    };
     return (
         <div className="page-container-entrada">
             <Header />
@@ -19,6 +13,7 @@ function Entrada() {
                         <form className="form-group-entrada">
                             <div className="input-matricula">
                                 <input
+                                    className="inputmatri"
                                     type="text"
                                     name="matricula"
                                     placeholder="Placa"
@@ -49,9 +44,6 @@ function Entrada() {
                                 </div>
                             </div>
                         </form>
-                        <section className="table-section-entrada">
-                            <Table props={{ header: header, body: body }} />
-                        </section>
                     </div>
                 </main>
             </div>
