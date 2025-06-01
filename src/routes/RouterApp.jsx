@@ -12,7 +12,7 @@ import Reserva from '../pages/Reserva.jsx';
 import Reporte from '../pages/Reportes.jsx';
 import Ayuda from '../pages/Ayuda.jsx';
 import Politicas from '../pages/Politicas.jsx';
-import CreateAccount from '../pages/createAccount.jsx';
+import CreateAccount from '../pages/CreateAccount.jsx';
 
 export let routes = [
   {
