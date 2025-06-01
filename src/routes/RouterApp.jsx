@@ -1,7 +1,6 @@
 import Login from '../pages/Login';
 import RutaProtegida from '../components/RutaProtegida.jsx';
 import NotFound from '../pages/NotFound.jsx';
-import CreateAccount from '../pages/CreateAccount.jsx';
 import TableExample from '../pages/TableExample.jsx';
 // import MonthlyPayment from '../pages/MonthlyPayment.jsx';
 import Blank from '../pages/Blank.jsx';
@@ -13,6 +12,7 @@ import Reserva from '../pages/Reserva.jsx';
 import Reporte from '../pages/Reportes.jsx';
 import Ayuda from '../pages/Ayuda.jsx';
 import Politicas from '../pages/Politicas.jsx';
+import CreateAccount from '../pages/CreateAccount.jsx';
 
 export let routes = [
   {

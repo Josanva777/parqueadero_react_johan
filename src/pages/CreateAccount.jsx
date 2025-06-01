@@ -3,11 +3,13 @@ import { FaUser, FaEye, FaEyeSlash } from 'react-icons/fa';
 import Header from '../components/Header';
 import LateralNav from '../components/LateralNav';
 import './CreateAccount.css';
-import { alertNotification } from '../helpers/funciones';
-import Table from '../components/Table';
+import { alertNotification, alertaConfirmar } from '../helpers/funciones';
+import { Edit, Trash2 } from 'lucide-react';
 const apiUsers = 'http://localhost:3000/users';
 
 function CreateAccount() {
+  let header = ['ID', 'ROL', 'USUARIO', 'EMAIL', 'CONTRASEÑA', 'ACCIONES'];
+
   const [users, setUsers] = useState([]);
   const [formData, setFormData] = useState({
     rol: '',
@@ -36,51 +38,59 @@ function CreateAccount() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const emailEx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     let newUser = {
-      id: users.length + 1,
+      id: users.length > 0 ? users[users.length - 1].id + 1 : 1,
       rol: parseInt(formData.rol),
       user: formData.user,
       email: formData.email.toLowerCase(),
       password: formData.password,
     }
 
-    const emailEx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-    if (formData.rol && formData.user && formData.password && formData.email) {
-      if (emailEx.test(formData.email)) {
-        let existUser = users.find(item => formData.user === item.user);
-        if (!existUser) {
-          let existEmail = users.find(item => formData.email === item.email);
-          if (!existEmail) {
-            if (formData.password === formData.confirm) {
-              fetch(apiUsers, {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(newUser)
-              }).then(() => {
-                alertNotification('¡Exitoso!', 'Usuario creado correctamente', 'success');
-                getUsers();
-              });
-              setFormData({ rol: '', user: '', password: '', email: '', confirm: '' });
-            } else {
-              alertNotification('Error', 'Las contraseñas no coinciden', 'error');
-            }
-          } else {
-            alertNotification('¡Error!', 'Email ya existe', 'error');
-          }
-        } else {
-          alertNotification('¡Error!', 'Usario ya existe', 'error');
-        }
-      } else {
-        alertNotification('¡Error!', 'Email incorrecto', 'error');
-      }
-    } else {
-      alertNotification('¡Error!', 'Llene todos los campos', 'error')
+    if (!formData.user || !formData.confirm || !formData.email || !formData.password || !formData.rol) {
+      alertNotification('¡Error!', 'Llene todos los campos', 'error');
+      return;
     }
-  };
+
+    if (!emailEx.test(formData.email)) {
+      alertNotification('¡Error!', 'Email incorrecto', 'error');
+      return;
+    }
+
+    let existUser = users.find(item => formData.user === item.user);
+    if (existUser) {
+      alertNotification('¡Error!', 'Usario ya existe', 'error');
+      return;
+    }
+
+    let existEmail = users.find(item => formData.email === item.email);
+    if (existEmail) {
+      alertNotification('¡Error!', 'Email ya existe', 'error');
+      return;
+    }
+
+    if (formData.password !== formData.confirm) {
+      alertNotification('Error', 'Las contraseñas no coinciden', 'error');
+      return;
+    }
+
+    fetch(apiUsers, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newUser)
+    }).then(() => {
+      alertNotification('¡Exitoso!', 'Usuario creado correctamente', 'success');
+      getUsers();
+    });
+    setFormData({ rol: '', user: '', password: '', email: '', confirm: '' });
+  }
+
+  function eliminarUsuario(id) {
+    alertaConfirmar(id, getUsers, apiUsers)
+  }
 
   return (
     <section className="page-container">
@@ -156,7 +166,6 @@ function CreateAccount() {
                       value={formData.confirm}
                       onChange={handleChange}
                       placeholder="••••••••"
-                      required
                     />
                     <button
                       type="button"
@@ -172,6 +181,44 @@ function CreateAccount() {
                 <button type="submit">Guardar</button>
               </div>
             </form>
+            <div className="w-full mb-8 overflow-hidden rounded-lg shadow-xs mt-8">
+              <div className="w-full overflow-x-auto">
+                <table className="w-full whitespace-no-wrap">
+                  <thead>
+                    <tr className="text-xs font-semibold tracking-wide text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                      {header.map((element, index) => {
+                        return (
+                          <th className="px-4 py-3" key={index}>
+                            {element}
+                          </th>
+                        );
+                      })}
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                    {users.map((row, index) => {
+                      return (
+                        <tr className="text-gray-700 dark:text-gray-400" key={index}>
+                          <th className="px-4 py-3" key={index}>{row.id}</th>
+                          <th className="px-4 py-3" key={index}>{row.rol}</th>
+                          <th className="px-4 py-3" key={index}>{row.user}</th>
+                          <th className="px-4 py-3" key={index}>{row.email}</th>
+                          <th className="px-4 py-3" key={index}>{row.password}</th>
+                          <th className="px-4 py-3">
+                            <div className="flex p-4 justify-center gap_20">
+                              <button className="flex items-center gap-2 px-3 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 focus:outline-none">
+                                <Edit className="w-5 h-5" /></button>
+                              <button onClick={() => eliminarUsuario(row.id)} className="flex items-center gap-2 px-3 py-2 bg-red-600 text-white rounded hover:bg-red-700">
+                                <Trash2 className="w-5 h-5" /></button>
+                            </div>
+                          </th>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </main>
       </div>

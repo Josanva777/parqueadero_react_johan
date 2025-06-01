@@ -16,27 +16,28 @@ function Entrada() {
                                     className="inputmatri"
                                     type="text"
                                     name="matricula"
-                                    placeholder="Placa"
+                                    placeholder="Matricula"
                                     maxlength="6"
                                     required
                                 />
                             </div>
                             <div className="list">
                                 <div className="selector-tarifa">
+
                                     <legend>Tarifa</legend>
                                     <aside className="moto">
+                                        <label for="lmoto">Moto</label>
                                         <input
                                             type="radio"
                                             name="Tarifa"
                                             value="Moto" />
-                                        <label for="lmoto">Moto</label>
                                     </aside>
                                     <aside className="moto">
+                                        <label for="lmoto">Carro</label>
                                         <input
                                             type="radio"
                                             name="Tarifa"
                                             value="Carro" />
-                                        <label for="lmoto">Carro</label>
                                     </aside>
                                 </div>
                                 <div className="reset">
