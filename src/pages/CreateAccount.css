@@ -61,9 +61,15 @@
 }
 
 .form-icon {
-  color: purple;
+  color: #9333ea;
   font-size: 1.5rem;
   animation: bounce 1.5s infinite;
+}
+
+.back-icon {
+  color: #9333ea;
+  font-size: 1.6rem;
+  position: absolute
 }
 
 .form-grid {
@@ -110,23 +116,23 @@
 
 .form-group input:focus,
 .form-group select:focus {
-  border-color: purple;
+  border-color: #9333ea;
   box-shadow: 0 0 0 1px rgba(128, 0, 128, 0.5);
   outline: none;
 }
 
 .dark .form-group input,
 .dark .form-group select {
-  background-color: #3a2d3a;
-  border-color: #8a4a8a;
-  color: #ffffff;
+  background-color: #fff;
+  border-color: #9333ea;
+  color: black;
 }
 
 .form-group select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='purple' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%239333ea' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 0.5rem center;
   background-size: 12px;
@@ -165,13 +171,13 @@
   transform: translateY(-50%);
   background: none;
   border: none;
-  color: purple;
+  color: #9333ea;
   cursor: pointer;
   font-size: 1rem;
 }
 
 .dark .toggle-password {
-  color: #d8b4d8;
+  color: #fff;
 }
 
 .radio-options {
@@ -200,7 +206,7 @@
 
 .radio-label span {
   font-size: 0.875rem;
-  color: purple;
+  color: #9333ea;
 }
 
 .dark .radio-label span {
@@ -208,7 +214,7 @@
 }
 
 .radio-label input:checked + span {
-  color: purple;
+  color: #9333ea;
   font-weight: 600;
 }
 
@@ -224,7 +230,7 @@
 
 .form-button button {
   padding: 0.5rem 1.25rem;
-  background: purple;
+  background: #9333ea;
   color: white;
   border: none;
   border-radius: 4px;
@@ -235,25 +241,25 @@
 }
 
 .form-button button:hover {
-  background: #800080cc;
+  background: #7e22ce;
   transform: scale(1.05);
 }
 
 .form-button button:active {
   transform: scale(0.98);
-  background: #4d004d;
+  background: #7e22ce;
 }
 
 .dark .form-button button {
-  background: #8a2be2;
+  background: #9333ea;
 }
 
 .dark .form-button button:hover {
-  background: #8a2be2cc;
+  background: #9333ea;
 }
 
 .dark .form-button button:active {
-  background: #5e1a9e;
+  background: #9333ea;
 }
 
 @keyframes bounce {
@@ -320,3 +326,23 @@
     gap: 0.3rem;
   }
 }
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #000;
+  border-bottom-color: #6C2BD9;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  }
+
+  @keyframes rotation {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+  } 

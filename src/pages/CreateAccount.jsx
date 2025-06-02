@@ -5,10 +5,12 @@ import LateralNav from '../components/LateralNav';
 import './CreateAccount.css';
 import { alertNotification, alertaConfirmar } from '../helpers/funciones';
 import { Edit, Trash2 } from 'lucide-react';
-const apiUsers = 'http://localhost:3000/users';
+import { Link } from 'react-router-dom';
+const apiUsers = 'https://backend-parqueadero-j8gj.onrender.com/api/users';
 
 function CreateAccount() {
-  let header = ['ID', 'ROL', 'USUARIO', 'EMAIL', 'CONTRASEÑA', 'ACCIONES'];
+  let header = ['ID', 'USUARIO', 'EMAIL', 'ROL', 'ACCIONES'];
+  let token = JSON.parse(localStorage.getItem('token'))
 
   const [users, setUsers] = useState([]);
   const [formData, setFormData] = useState({
@@ -22,9 +24,16 @@ function CreateAccount() {
   const [showConfirm, setShowConfirm] = useState(false);
 
   function getUsers() {
-    fetch(apiUsers)
+    fetch(apiUsers, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token.accessToken}`,
+        'Accept': 'application/json'
+      }
+    })
       .then(response => response.json())
-      .then(result => setUsers(result));
+      .then(result => setUsers(result.result))
+      .catch(error => console.error(error))
   }
 
   useEffect(() => {
@@ -38,14 +47,12 @@ function CreateAccount() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const emailEx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     let newUser = {
-      id: users.length > 0 ? users[users.length - 1].id + 1 : 1,
-      rol: parseInt(formData.rol),
-      user: formData.user,
       email: formData.email.toLowerCase(),
+      userName: formData.user,
       password: formData.password,
+      role: formData.rol
     }
 
     if (!formData.user || !formData.confirm || !formData.email || !formData.password || !formData.rol) {
@@ -53,12 +60,13 @@ function CreateAccount() {
       return;
     }
 
+    const emailEx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailEx.test(formData.email)) {
       alertNotification('¡Error!', 'Email incorrecto', 'error');
       return;
     }
 
-    let existUser = users.find(item => formData.user === item.user);
+    let existUser = users.find(item => formData.user === item.userName);
     if (existUser) {
       alertNotification('¡Error!', 'Usario ya existe', 'error');
       return;
@@ -70,6 +78,12 @@ function CreateAccount() {
       return;
     }
 
+    const passwordEx = /^.{6,}$/
+    if (!passwordEx.test(formData.password)) {
+      alertNotification('¡Error!', 'La contraseña debe de contener al menos 6 caracteres', 'error');
+      return;
+    }
+
     if (formData.password !== formData.confirm) {
       alertNotification('Error', 'Las contraseñas no coinciden', 'error');
       return;
@@ -78,15 +92,21 @@ function CreateAccount() {
     fetch(apiUsers, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token.accessToken}`
       },
       body: JSON.stringify(newUser)
-    }).then(() => {
-      alertNotification('¡Exitoso!', 'Usuario creado correctamente', 'success');
-      getUsers();
-    });
-    setFormData({ rol: '', user: '', password: '', email: '', confirm: '' });
+    })
+      .then(response => response.json())
+      .then(data => {
+        setFormData({ rol: '', user: '', password: '', email: '', confirm: '' });
+
+        alertNotification('Éxito', data.message, 'success');
+
+        getUsers();
+      })
   }
+
 
   function eliminarUsuario(id) {
     alertaConfirmar(id, getUsers, apiUsers)
@@ -133,9 +153,8 @@ function CreateAccount() {
                     onChange={handleChange}
                   >
                     <option value="">Seleccionar</option>
-                    <option value="1">Administrador</option>
-                    <option value="2">Operario</option>
-                    <option value="3">Cliente</option>
+                    <option value="Administrador">Administrador</option>
+                    <option value="Operario">Operario</option>
                   </select>
                 </div>
                 <div className="form-group password-group">
@@ -196,25 +215,35 @@ function CreateAccount() {
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                    {users.map((row, index) => {
-                      return (
-                        <tr className="text-gray-700 dark:text-gray-400" key={index}>
-                          <th className="px-4 py-3" key={index}>{row.id}</th>
-                          <th className="px-4 py-3" key={index}>{row.rol}</th>
-                          <th className="px-4 py-3" key={index}>{row.user}</th>
-                          <th className="px-4 py-3" key={index}>{row.email}</th>
-                          <th className="px-4 py-3" key={index}>{row.password}</th>
-                          <th className="px-4 py-3">
-                            <div className="flex p-4 justify-center gap_20">
-                              <button className="flex items-center gap-2 px-3 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 focus:outline-none">
-                                <Edit className="w-5 h-5" /></button>
-                              <button onClick={() => eliminarUsuario(row.id)} className="flex items-center gap-2 px-3 py-2 bg-red-600 text-white rounded hover:bg-red-700">
-                                <Trash2 className="w-5 h-5" /></button>
+                    {
+                      !users.length ? (
+                        <tr>
+                          <td colSpan="5">
+                            <div className="flex justify-center items-center py-6">
+                              <span className="loader"></span>
                             </div>
-                          </th>
+                          </td>
                         </tr>
-                      );
-                    })}
+                      ) : (
+                        users.map((row) => (
+                          <tr className="text-gray-700 dark:text-gray-400" key={row.id}>
+                            <th className="px-4 py-3">{row.id}</th>
+                            <th className="px-4 py-3">{row.userName}</th>
+                            <th className="px-4 py-3">{row.email}</th>
+                            <th className="px-4 py-3">{row.role}</th>
+                            <th className="px-4 py-3">
+                              <div className="flex p-4 justify-center">
+                                <Link to={"/editar-usuario/" + row.id} className="flex items-center gap-2 px-3 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 focus:outline-none mr-2">
+                                  <Edit className="w-5 h-5" />
+                                </Link>
+                                <button onClick={() => eliminarUsuario(row.id)} className="flex items-center gap-2 px-3 py-2 bg-red-600 text-white rounded hover:bg-red-700">
+                                  <Trash2 className="w-5 h-5" />
+                                </button>
+                              </div>
+                            </th>
+                          </tr>
+                        ))
+                      )}
                   </tbody>
                 </table>
               </div>

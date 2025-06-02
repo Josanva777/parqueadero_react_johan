@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.15",
+    "bcrypt": "^6.0.0",
     "cssj-react": "file:",
     "lucide-react": "^0.507.0",
     "react": "^19.0.0",
