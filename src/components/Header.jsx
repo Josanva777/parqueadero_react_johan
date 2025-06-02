@@ -4,6 +4,7 @@ import { BsSun, BsMoon } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { alertaCerrarSesion } from "../helpers/funciones";
+import imagenes from "../assets/img/imagenes.js";
 
 function Header() {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ function Header() {
       <div className="header-content">
         <div className="header-logo">
           <img
-            src="/logo_parqueadero.png"
+            src={imagenes.img3}
             alt="Logo parqueadero"
             className="header-logo-img"
           />
