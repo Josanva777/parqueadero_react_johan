@@ -3,6 +3,7 @@ import { FiLogOut } from "react-icons/fi";
 import { BsSun, BsMoon } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { alertaCerrarSesion } from "../helpers/funciones";
 
 function Header() {
   const navigate = useNavigate();
@@ -19,12 +20,6 @@ function Header() {
       document.documentElement.classList.remove("dark");
     }
   }, [isDarkMode]);
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    navigate("/");
-  };
 
   return (
     <header className="header-container">
@@ -50,7 +45,7 @@ function Header() {
           </button>
           <button
             className="header-logout"
-            onClick={handleLogout}
+            onClick={() => alertaCerrarSesion(navigate)}
             aria-label="Cerrar sesión"
           >
             <FiLogOut className="header-logout-icon" />
