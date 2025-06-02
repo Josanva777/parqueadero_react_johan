@@ -1,6 +1,11 @@
 import "./LateralNav.css";
-import { FaRegCalendar } from "react-icons/fa";
+import { MdOutlineEventAvailable } from "react-icons/md";
+import { HiOutlineDocumentReport } from "react-icons/hi";
+import { IoMdExit } from "react-icons/io";
 import { FiMenu, FiX } from "react-icons/fi";
+import { MdOutlineCalendarMonth } from "react-icons/md";
+import { LuDoorOpen } from "react-icons/lu";
+import { RiCalendarTodoLine } from "react-icons/ri";
 import { NavLink, Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
@@ -33,43 +38,38 @@ function LateralNav() {
           <ul className="sidebar-menu">
             <li>
               <NavLink to="/disponibilidad">
-                <FaRegCalendar className="icon" />
+                <RiCalendarTodoLine className="iconDisponibilidad" />
                 <span>Disponibilidad</span>
               </NavLink>
             </li>
             <li>
               <NavLink to="/Entrada" activeClassName="active">
+                <LuDoorOpen className="iconEntrada" />
                 <span>Entrada</span>
               </NavLink>
             </li>
             <li>
               <NavLink to="/salida">
+                <IoMdExit className="iconExit" />
                 <span>Salida</span>
               </NavLink>
             </li>
             <li>
               <NavLink to="/mensualidad">
+                <MdOutlineCalendarMonth className="iconMensualidad" />
                 <span>Mensualidad</span>
               </NavLink>
             </li>
             <li>
               <NavLink to="/reserva">
+              <MdOutlineEventAvailable className="iconReserva" />
                 <span>Reserva</span>
               </NavLink>
             </li>
             <li>
               <NavLink to="/reporte">
+                <HiOutlineDocumentReport className="iconReporte" />
                 <span>Reporte</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/ayuda">
-                <span>Ayuda</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/politicas">
-                <span>Politicas</span>
               </NavLink>
             </li>
             <li>

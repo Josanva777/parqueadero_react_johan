@@ -103,3 +103,7 @@
     background-color:rgb(72, 51, 117);
     transform: scale(1.05);
 }
+
+.table-section-salida {
+    margin-top: 2.5rem;
+}
