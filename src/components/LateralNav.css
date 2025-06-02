@@ -1,11 +1,17 @@
-
+.sidebar-link.active {
+  color: #9333ea;
+  border-radius: 8px;
+  font-weight: 600;
+  transform: translateX(8px);
+}
 
 .sidebar {
   width: 16rem;
   background-color: #ffffff;
   box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1);
   position: fixed;
-  top: 4rem; /* Debajo del header */
+  top: 4rem;
+  /* Debajo del header */
   left: 0;
   height: calc(100vh - 4rem);
   z-index: 900;
@@ -62,7 +68,7 @@
   transition: background-color 0.2s ease;
 }
 
-.sidebar-menu li:hover {
+.sidebar-menu li:hover {  
   background-color: rgba(128, 0, 128, 0.103);
   border-radius: 8px;
 }
@@ -117,7 +123,7 @@
 }
 
 .sidebar-footer-link:hover {
-  background-color:rgb(129, 90, 213);
+  background-color: rgb(129, 90, 213);
   transform: scale(1.02);
 }
 

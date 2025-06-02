@@ -15,9 +15,11 @@ function LateralNav() {
     setIsOpen((prev) => !prev);
   };
 
-  const redirectMonthlyPayment = () => {
-    redirection("/mensualidad");
-  };
+  const navLinkClass = ({ isActive }) =>
+    isActive
+      ? "text-purple-600 font-bold sidebar-link active"
+      : "text-gray-700 sidebar-link";
+
 
   return (
     <>
@@ -38,42 +40,42 @@ function LateralNav() {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/Entrada" activeClassName="active">
+              <NavLink to="/entrada" className={navLinkClass}>
                 <span>Entrada</span>
               </NavLink>
             </li>
             <li>
-              <NavLink to="/salida">
+              <NavLink to="/salida" className={navLinkClass}>
                 <span>Salida</span>
               </NavLink>
             </li>
             <li>
-              <NavLink to="/mensualidad">
+              <NavLink to="/mensualidad" className={navLinkClass}>
                 <span>Mensualidad</span>
               </NavLink>
             </li>
             <li>
-              <NavLink to="/reserva">
+              <NavLink to="/reserva" className={navLinkClass}>
                 <span>Reserva</span>
               </NavLink>
             </li>
             <li>
-              <NavLink to="/reporte">
+              <NavLink to="/reporte" className={navLinkClass}>
                 <span>Reporte</span>
               </NavLink>
             </li>
             <li>
-              <NavLink to="/ayuda">
+              <NavLink to="/ayuda" className={navLinkClass}>
                 <span>Ayuda</span>
               </NavLink>
             </li>
             <li>
-              <NavLink to="/politicas">
+              <NavLink to="/politicas" className={navLinkClass}>
                 <span>Politicas</span>
               </NavLink>
             </li>
             <li>
-              <NavLink to="/tablas">
+              <NavLink to="/tablas" className={navLinkClass}>
                 <span>Tablas</span>
               </NavLink>
             </li>
