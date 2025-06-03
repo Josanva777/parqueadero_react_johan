@@ -13,6 +13,7 @@ import Reporte from '../pages/Reportes.jsx';
 import Ayuda from '../pages/Ayuda.jsx';
 import Politicas from '../pages/Politicas.jsx';
 import CreateAccount from '../pages/CreateAccount.jsx';
+import EditarUsuario from '../pages/EditarUsuario.jsx';
 
 export let routes = [
   {
@@ -59,10 +60,10 @@ export let routes = [
     path: '/tablas',
     element: <RutaProtegida protect={<TableExample />} />,
   },
-  // {
-  //   path: '/mensualidad',
-  //   element: <MonthlyPayment />,
-  // },
+  {
+    path: '/editar-usuario/:id',
+    element: <RutaProtegida protect={<EditarUsuario />} />,
+  },
   {
     path: '/blank',
     element: <Blank />,
