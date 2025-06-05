@@ -2,15 +2,18 @@ import { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import LateralNav from '../components/LateralNav';
 import { alertNotification } from '../helpers/funciones';
-const apiMonthlyPayment = 'http://localhost:3000/Monthlypayment';
 import Swal from "sweetalert2";
+import './Mensualidades.css';
+const apiMensualidad = 'https://backend-parqueadero-j8gj.onrender.com/api/records';
 
 function Mensualidad() {
   const [plate, setPlate] = useState('');
-  const [startDate, setStartDate] = useState('');
+  const [startDate, setStartDate] = useState(new Date());
   const [numbersMonth, setNumbersMonth] = useState('');
   const [typeVehicle, setTypeVehicle] = useState('');
   const [monthlyPayment, setMonthlyPayment] = useState([]);
+
+  let token = JSON.parse(localStorage.getItem('token'))
 
   let typeValue = {
     1: 20000,
@@ -18,9 +21,16 @@ function Mensualidad() {
   }
 
   function getMonthlyPayment() {
-    fetch(apiMonthlyPayment)
+    fetch(apiMensualidad, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token.accessToken}`,
+        'Accept': 'application/json'
+      }
+    })
       .then(response => response.json())
-      .then(result => setMonthlyPayment(result));
+      .then(result => console.log(result))
+      .catch(error => console.error(error))
   }
 
   useEffect(() => {
@@ -28,42 +38,48 @@ function Mensualidad() {
   }, [])
 
 
-  function handleSubmit(e) {
-    e.preventDefault();
+  // function handleSubmit(e) {
+  //   e.preventDefault();
 
-    let initialDate = new Date(startDate);
-    let endDate = new Date(initialDate);
-    endDate = new Date(endDate.setMonth(endDate.getMonth() + parseInt(numbersMonth)));
+  //   let initialDate = new Date(startDate);
+  //   initialDate.setDate(initialDate.getDate() + 1)
+  //   let endDate = new Date(initialDate);
+  //   endDate = new Date(endDate.setMonth(endDate.getMonth() + parseInt(numbersMonth)));
 
-    const regExPlate = /^[A-Za-z]{3}[A-Za-z0-9]{3}$/;
+  //   const regExPlate = /^[A-Za-z]{3}[A-Za-z0-9]{3}$/;
 
-    let newMonthlyPayment = {
-      plate: plate,
-      initialDate: initialDate,
-      endDate: endDate,
-      months: parseInt(numbersMonth),
-      type: parseInt(typeVehicle)
-    }
+  //   let newMonthlyPayment = {
+  //     plate: plate,
+  //     initialDate: initialDate,
+  //     endDate: endDate,
+  //     months: parseInt(numbersMonth),
+  //     type: parseInt(typeVehicle)
+  //   }
 
-    if (plate !== '' && startDate !== '' && numbersMonth !== '' && typeVehicle !== '') {
-      if (regExPlate.test(plate)) {
-        if (initialDate >= new Date()) {
-          let existPlate = monthlyPayment.find(item => plate === item.plate);
-          if (!existPlate) {
-            createMessage(newMonthlyPayment)
-          } else {
-            alertNotification('¡Error', 'la placa existe', 'error');
-          }
-        } else {
-          alertNotification('Error!', 'Digite una fecha correcta', 'error')
-        }
-      } else {
-        alertNotification('Error!', 'Digite una placa correcta', 'error');
-      }
-    } else {
-      alertNotification('Error!', 'Rellene todos los campos', 'error');
-    }
-  }
+  //   if (!plate || !startDate || !numbersMonth || !typeVehicle) {
+  //     alertNotification('Error!', 'Rellene todos los campos', 'error');
+  //     return;
+  //   }
+  //   if (!regExPlate.test(plate)) {
+  //     alertNotification('Error!', 'Digite una placa correcta', 'error');
+  //     return;
+  //   }
+
+  //   if (initialDate <= new Date()) {
+  //     alertNotification('Error!', 'Ingrese una fecha correcta', 'error');
+  //     return;
+  //   }
+
+  //   //   let existPlate = monthlyPayment.find(item => plate === item.plate);
+  //   //   if (!existPlate) {
+  //   //     createMessage(newMonthlyPayment)
+  //   //   } else {
+  //   //     alertNotification('¡Error', 'la placa existe', 'error');
+  //   //   }
+  //   // } else {
+  //   //   
+  //   // }
+  // }
 
   function createMessage(newMonthlyPayment) {
     Swal.fire({
@@ -88,7 +104,7 @@ function Mensualidad() {
           setPlate('');
           setStartDate('');
           setNumbersMonth('');
-          setTypeVehicle('');      
+          setTypeVehicle('');
         })
       }
     });
@@ -104,14 +120,15 @@ function Mensualidad() {
             <h1 className="form-title">
               Registro de mensualidades
             </h1>
-            <form id="formularioRegistro" onSubmit={handleSubmit}>
+            <form id="formularioRegistro" >
               <div className="form-grid">
-                <div className="form-group">
-                  <label>Placa</label>
+                <div className="div-plate form-group">
                   <input
+                    className='plate-input'
                     type="text"
                     name="user"
                     value={plate}
+                    placeholder="PLACA"
                     onChange={e => setPlate(e.target.value)}
                   />
                 </div>
