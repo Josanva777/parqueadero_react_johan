@@ -2,12 +2,10 @@
 
 .page-container-entrada {
     height: 100vh;
-    /* Cambiado de min-height a height para fijar el tamaño */
     display: flex;
     flex-direction: column;
     background: #f0f2f5;
     overflow: hidden;
-    /* Evita scroll en el contenedor principal */
 }
 
 .dark .page-container-entrada {
@@ -17,23 +15,17 @@
 .main-container-entrada {
     display: flex;
     flex: 1;
-    height: calc(100vh - 4rem);
-    /* Resta la altura del header fijo */
-    padding-top: 4rem;
-    /* Espacio para el header fijo */
+    height: calc(100vh - 4rem); /* Asumiendo que 4rem es la altura del header fijo */
+    padding-top: 4rem; /* Espacio para el header fijo */
     overflow: hidden;
-    /* Evita scroll en este nivel */
 }
 
 .content-container-entrada {
     flex: 1;
     padding: 1rem;
-    margin-left: 16rem;
-    /* Espacio para el sidebar en escritorio */
-    overflow-y: auto;
-    /* Scroll solo si es necesario, pero lo ajustaremos para evitarlo */
+    margin-left: 16rem; /* Espacio para el sidebar en escritorio */
+    overflow-y: auto; /* Permite scroll vertical si el contenido excede la altura */
     height: 100%;
-    /* Ocupa toda la altura disponible */
     display: flex;
     flex-direction: column;
 }
@@ -45,14 +37,11 @@
     background: white;
     border-radius: 8px;
     padding: 1rem;
-    /* Reducido para ahorrar espacio */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     flex-grow: 1;
-    /* Permite que crezca para llenar el espacio */
     display: flex;
     flex-direction: column;
-    overflow: hidden;
-    /* Evita scroll dentro del formulario */
+    overflow: hidden; /* Evita scroll no deseado dentro del wrapper */
 }
 
 .dark .entrada-wrapper {
@@ -61,45 +50,54 @@
 
 .form-group-entrada {
     display: flex;
+    /* Por defecto, los elementos se apilan para móviles. */
+    flex-direction: column;
+    align-items: center; /* Centra los elementos cuando están en columna */
+    gap: 1.5rem; /* Espacio entre los elementos del formulario */
+    justify-content: center; /* Centra el grupo si hay espacio */
 }
 
 .input-matricula {
     display: flex;
     justify-content: center;
-    width: 100%;
-    height: 10rem
+    width: 100%; /* Por defecto para móvil */
+    height: 10rem; /* Altura predeterminada, se ajustará para PC */
+    max-width: 500px; /* Limita el ancho del input de matrícula en móviles */
 }
 
 .inputmatri {
-    width: 70%;
+    width: 70%; /* Se ajustará para PC */
     height: 100%;
-    font-size: 3rem;
+    font-size: 3rem; /* Se ajustará para PC */
     text-align: center;
-    background-color: rgba(173, 152, 219, 0.11) ;
+    background-color: rgba(173, 152, 219, 0.11);
     text-transform: uppercase;
     border-radius: 25px;
     padding: 0px 1rem;
+    box-sizing: border-box;
 }
 
-
-.list {
-    max-width: 20rem;
-    min-width: 20rem;
+/* Agregamos un nuevo contenedor para el "selector-tarifa" y el "reset" para poder alinear el botón */
+.tariff-and-button-group {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: start;
+    flex-direction: column; /* Por defecto apilado */
+    align-items: center; /* Centra sus contenidos */
+    gap: 1rem; /* Espacio entre la tarifa y el botón */
+    width: 100%; /* Ocupa el ancho completo en móvil */
+    max-width: 300px; /* Limita el ancho en móvil si es necesario */
 }
 
 .selector-tarifa {
     display: flex;
     flex-direction: column;
+    align-items: center; /* Centra los elementos en el selector de tarifa */
+    width: 100%; /* Ocupa todo el ancho disponible dentro de .tariff-and-button-group */
 }
 
 .selector-tarifa .button {
     display: flex;
-    flex-direction:column;
-
+    flex-direction: column;
+    width: 100%; /* Asegura que los botones ocupen el ancho del selector */
 }
 
 .selector-tarifa legend {
@@ -114,6 +112,8 @@
     display: flex;
     align-items: center;
     gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .moto,
@@ -123,7 +123,8 @@
 
 .reset {
     text-align: center;
-    margin-top: 12px;
+    /* margin-top: 12px; Eliminado para que el gap del padre controle el espaciado */
+    width: 100%; /* Ocupa todo el ancho disponible dentro de .tariff-and-button-group */
 }
 
 .reset input {
@@ -136,19 +137,152 @@
     font-size: 1rem;
     font-weight: bold;
     transition: background-color 0.3s ease, transform 0.2s ease;
+    width: auto; /* Ajusta el ancho automáticamente */
+    height: 3rem; /* Altura fija para el botón en móvil y como referencia */
+    white-space: nowrap; /* Evita que el texto del botón se rompa */
 }
 
 .reset input:hover {
-    background-color:rgb(72, 51, 117);
+    background-color: rgb(72, 51, 117);
     transform: scale(1.05);
 }
 
 .table-section-entrada {
     margin-top: 2.5rem;
+    overflow-x: auto;
 }
 
 .delete-icon {
     color: var(--color-primary);
     height: 23px;
     width: 23px;
+}
+
+/* --- Media Queries --- */
+
+/* Para pantallas de PC (mayores a 768px) */
+@media (min-width: 769px) {
+    .form-group-entrada {
+        flex-direction: row; /* Coloca el input de matrícula y el nuevo grupo en fila */
+        justify-content: center; /* Centra el grupo completo */
+        align-items: center; /* Alinea verticalmente los elementos al centro */
+        gap: 2rem; /* Espacio entre el input grande y el grupo de tarifa/botón */
+    }
+
+    .input-matricula {
+        height: 10rem; /* Hace el input de matrícula más grande en PC */
+        width: 400px; /* Ancho fijo para el input de matrícula en PC */
+        max-width: none; /* Elimina el límite de ancho para PC */
+    }
+
+    .inputmatri {
+        width: 100%; /* Ocupa el 100% del contenedor .input-matricula */
+        font-size: 4rem; /* Tamaño de fuente más grande */
+    }
+
+    .tariff-and-button-group {
+        width: 150px; /* Ancho fijo para el grupo de tarifa y botón */
+        max-width: none; /* Elimina el límite de ancho para PC */
+        height: 15rem; /* Ocupa la misma altura que el input de matrícula */
+        justify-content: center; /* Centra verticalmente sus contenidos */
+        gap: 1.5rem; /* Espacio entre tarifa y botón */
+    }
+
+    .selector-tarifa {
+        /* Para que el selector de tarifa ocupe el espacio superior y el botón el inferior */
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end; /* Alinea la leyenda al final del espacio */
+        align-items: center;
+        flex-grow: 1; /* Permite que la sección de tarifa crezca */
+    }
+
+    .selector-tarifa legend {
+        margin-bottom: 0.5rem; /* Pequeño margen debajo de la leyenda */
+    }
+
+    .selector-tarifa aside {
+        flex-direction: row; /* Mantener los radios en fila */
+    }
+
+    .reset {
+        height: auto; /* Altura automática */
+        margin-top: 0; /* Elimina cualquier margen superior extra */
+    }
+
+    .reset input {
+        height: 3rem; /* Altura fija para el botón */
+        width: 100%; /* Ocupa el ancho completo de su contenedor .tariff-and-button-group */
+        font-size: 1rem; /* Mantiene un tamaño de fuente estándar para el botón */
+    }
+}
+
+
+/* Para pantallas más pequeñas (tablets y móviles) */
+@media (max-width: 768px) {
+    .main-container-entrada {
+        padding-top: 3rem;
+        height: calc(100vh - 3rem);
+    }
+
+    .content-container-entrada {
+        margin-left: 0;
+        padding: 0.5rem;
+    }
+
+    .entrada-wrapper {
+        padding: 0.75rem;
+    }
+
+    /* .form-group-entrada ya está configurado para columna por defecto */
+
+    .input-matricula {
+        height: 8rem;
+    }
+
+    .inputmatri {
+        font-size: 2.5rem;
+        width: 85%;
+    }
+
+    .tariff-and-button-group {
+        max-width: 100%; /* Ocupa todo el ancho en móvil */
+        min-width: unset; /* Elimina el ancho mínimo fijo */
+        gap: 1rem; /* Espacio entre selector y botón en móvil */
+    }
+
+    .selector-tarifa {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .reset {
+        min-width: unset;
+        margin-top: 0; /* Asegurarse de que no haya margen superior extra */
+    }
+
+    .reset input {
+        width: 100%; /* Botón ocupa el ancho completo en móvil */
+    }
+
+    .table-section-entrada {
+        margin-top: 1.5rem;
+    }
+}
+
+/* Para pantallas muy pequeñas (móviles) */
+@media (max-width: 480px) {
+    .input-matricula {
+        height: 6rem;
+    }
+
+    .inputmatri {
+        font-size: 2rem;
+        width: 95%;
+    }
+
+    .selector-tarifa aside {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
 }

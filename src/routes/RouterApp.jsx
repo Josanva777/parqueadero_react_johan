@@ -8,10 +8,7 @@ import Disponibilidad from '../pages/Disponibilidad.jsx';
 import Entrada from '../pages/Entrada.jsx';
 import Salida from '../pages/Salida.jsx';
 import Mensualidad from '../pages/Mensualidad.jsx';
-import Reserva from '../pages/Reserva.jsx';
 import Reporte from '../pages/Reportes.jsx';
-import Ayuda from '../pages/Ayuda.jsx';
-import Politicas from '../pages/Politicas.jsx';
 import CreateAccount from '../pages/CreateAccount.jsx';
 import EditarUsuario from '../pages/EditarUsuario.jsx';
 
@@ -37,28 +34,12 @@ export let routes = [
     element: <RutaProtegida protect={<Mensualidad />} />,
   },
   {
-    path: '/reserva',
-    element: <RutaProtegida protect={<Reserva />} />,
-  },
-  {
     path: '/reporte',
     element: <RutaProtegida protect={<Reporte />} />,
   },
   {
-    path: '/ayuda',
-    element: <RutaProtegida protect={<Ayuda />} />,
-  },
-  {
-    path: '/politicas',
-    element: <RutaProtegida protect={<Politicas />} />,
-  },
-  {
     path: '/formularioregistro',
     element: <RutaProtegida protect={<CreateAccount />} />,
-  },
-  {
-    path: '/tablas',
-    element: <RutaProtegida protect={<TableExample />} />,
   },
   {
     path: '/editar-usuario/:id',

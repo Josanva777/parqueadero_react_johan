@@ -2,12 +2,10 @@
 
 .page-container-salida {
     height: 100vh;
-    /* Cambiado de min-height a height para fijar el tamaño */
     display: flex;
     flex-direction: column;
     background: #f0f2f5;
     overflow: hidden;
-    /* Evita scroll en el contenedor principal */
 }
 
 .dark .page-container-salida {
@@ -17,23 +15,17 @@
 .main-container-salida {
     display: flex;
     flex: 1;
-    height: calc(100vh - 4rem);
-    /* Resta la altura del header fijo */
-    padding-top: 4rem;
-    /* Espacio para el header fijo */
+    height: calc(100vh - 4rem); /* Asumiendo que 4rem es la altura del header fijo */
+    padding-top: 4rem; /* Espacio para el header fijo */
     overflow: hidden;
-    /* Evita scroll en este nivel */
 }
 
 .content-container-salida {
     flex: 1;
     padding: 1rem;
-    margin-left: 16rem;
-    /* Espacio para el sidebar en escritorio */
-    overflow-y: auto;
-    /* Scroll solo si es necesario, pero lo ajustaremos para evitarlo */
+    margin-left: 16rem; /* Espacio para el sidebar en escritorio */
+    overflow-y: auto; /* Permite scroll vertical si el contenido excede la altura */
     height: 100%;
-    /* Ocupa toda la altura disponible */
     display: flex;
     flex-direction: column;
 }
@@ -45,14 +37,11 @@
     background: white;
     border-radius: 8px;
     padding: 1rem;
-    /* Reducido para ahorrar espacio */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     flex-grow: 1;
-    /* Permite que crezca para llenar el espacio */
     display: flex;
     flex-direction: column;
-    overflow: hidden;
-    /* Evita scroll dentro del formulario */
+    overflow: hidden; /* Evita scroll no deseado dentro del wrapper */
 }
 
 .dark .salida-wrapper {
@@ -61,28 +50,42 @@
 
 .form-group-salida {
     display: flex;
-    justify-content: space-evenly;
+    /* Por defecto, los elementos se apilan para móviles. */
+    flex-direction: column;
+    align-items: center; /* Centra los elementos cuando están en columna */
+    gap: 1.5rem; /* Espacio entre los elementos del formulario */
+    justify-content: center; /* Centra el grupo si hay espacio */
 }
 
 .input-matricula-salida {
     display: flex;
-    flex-direction: row; /* Alinear en línea */
-    justify-content: space-evenly; /* Centrar horizontalmente */
-    align-items: center; /* Centrar verticalmente */
-    width: 100%;
-    height: 10rem;
+    flex-direction: row; /* En PC, el input y el botón irán en fila. Por defecto en móvil. */
+    justify-content: center; /* Centra el input y el botón */
+    align-items: center; /* Centra verticalmente */
+    width: 100%; /* Ocupa todo el ancho por defecto en móvil */
+    height: 10rem; /* Altura predeterminada, se ajustará para PC */
     gap: 1rem; /* Espacio entre el input y el botón */
+    max-width: 600px; /* Limita el ancho total del grupo input+button en móvil */
 }
 
 .inputmatri-salida {
-    width: 50%; /* Mantenemos el ancho original */
-    height: 100%; /* Mantenemos la altura original */
-    font-size: 3rem;
+    width: 70%; /* Se ajustará para PC para que el botón tenga más espacio */
+    height: 100%;
+    font-size: 3rem; /* Se ajustará para PC */
     text-align: center;
     background-color: rgba(173, 152, 219, 0.11);
     text-transform: uppercase;
     border-radius: 25px;
     padding: 0px 1rem;
+    box-sizing: border-box; /* Asegura que el padding no aumente el ancho */
+}
+
+.buscar {
+    /* El contenedor del botón */
+    display: flex;
+    align-items: center; /* Centra verticalmente el botón dentro de su contenedor */
+    width: auto; /* Ancho automático por defecto, se ajustará en PC */
+    height: 100%; /* Ocupa toda la altura disponible */
 }
 
 .buscar input {
@@ -95,15 +98,112 @@
     font-size: 1rem;
     font-weight: bold;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    height: 50%;
-    width: 100%;
+    height: 50%; /* Mantén el 50% de la altura del contenedor principal de la matrícula */
+    width: 100%; /* Ajustará su ancho al contenedor .buscar */
+    white-space: nowrap; /* Evita que el texto del botón se rompa */
 }
 
 .buscar input:hover {
-    background-color:rgb(72, 51, 117);
+    background-color: rgb(72, 51, 117);
     transform: scale(1.05);
 }
 
 .table-section-salida {
     margin-top: 2.5rem;
+    overflow-x: auto; /* Agrega scroll horizontal para tablas en pantallas pequeñas */
 }
+
+/* --- Media Queries --- */
+
+/* Para pantallas de PC (mayores a 768px) */
+@media (min-width: 769px) {
+    .form-group-salida {
+        flex-direction: row; /* Coloca el input y el botón en fila */
+        justify-content: center; /* Centra el grupo completo */
+        align-items: center; /* Alinea verticalmente los elementos al centro */
+        gap: 2rem; /* Espacio entre el input y el botón en PC */
+    }
+
+    .input-matricula-salida {
+        height: 10rem; /* Hace el input de matrícula más grande en PC */
+        width: auto; /* Permite que el contenido determine el ancho */
+        max-width: none; /* Elimina el límite de ancho para PC */
+    }
+
+    .inputmatri-salida {
+        width: 400px; /* Ancho fijo para el input de matrícula en PC */
+        font-size: 4rem; /* Tamaño de fuente más grande */
+    }
+
+    .buscar {
+        width: 150px; /* Ancho fijo para el botón en PC */
+        height: 60%; /* Ocupa la altura del input-matricula-salida */
+    }
+
+    .buscar input {
+        height: 50%; /* Mantiene el botón a la mitad de la altura del input */
+        font-size: 1.2rem; /* Ajusta el tamaño de fuente del botón */
+    }
+}
+
+
+/* Para pantallas más pequeñas (tablets y móviles) */
+@media (max-width: 768px) {
+    .main-container-salida {
+        padding-top: 3rem;
+        height: calc(100vh - 3rem);
+    }
+
+    .content-container-salida {
+        margin-left: 0;
+        padding: 0.5rem;
+    }
+
+    .salida-wrapper {
+        padding: 0.75rem;
+    }
+
+    /* .form-group-salida ya está configurado para columna por defecto */
+
+    .input-matricula-salida {
+        flex-direction: column; /* Apila el input y el botón en móviles */
+        height: auto; /* Altura automática */
+        gap: 3rem; /* Espacio entre input y botón apilados */
+    }
+
+    .inputmatri-salida {
+        height: 8rem; /* Reduce la altura del input en móvil */
+        font-size: 2.5rem; /* Reduce el tamaño de fuente */
+        width: 85%; /* Aumenta el ancho para mejor visualización */
+    }
+
+    .buscar {
+        height: auto; /* Altura automática */
+        width: 85%; /* El botón ocupa el mismo ancho que el input */
+        margin-top: 0; /* Elimina margen si se apilan */
+    }
+
+    .buscar input {
+        height: 3rem; /* Altura fija para el botón en móvil */
+        width: 100%; /* Ocupa todo el ancho de su contenedor */
+        font-size: 1rem; /* Tamaño de fuente normal para el botón */
+    }
+
+    .table-section-salida {
+        margin-top: 1.5rem;
+    }
+}
+
+/* Para pantallas muy pequeñas (móviles) */
+@media (max-width: 480px) {
+    .inputmatri-salida {
+        height: 6rem;
+        font-size: 2rem;
+        width: 95%;
+    }
+
+    .buscar {
+        width: 95%;
+    }
+}
+
