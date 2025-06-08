@@ -1,26 +1,30 @@
+const apiMensualidad = 'http://localhost:8081/api/records';
+import { alertNotification } from '../helpers/funciones';
+import LateralNav from '../components/LateralNav';
 import { useEffect, useState } from 'react';
 import Header from '../components/Header';
-import LateralNav from '../components/LateralNav';
-import { alertNotification } from '../helpers/funciones';
+import { format, differenceInMonths } from 'date-fns';
 import Swal from "sweetalert2";
 import './Mensualidades.css';
-const apiMensualidad = 'https://backend-parqueadero-j8gj.onrender.com/api/records';
+import { Trash2 } from 'lucide-react';
 
 function Mensualidad() {
+  let header = [ 'PLACA', 'INICIO', 'FIN', 'ACCIONES'];
+
   const [plate, setPlate] = useState('');
   const [startDate, setStartDate] = useState(new Date());
   const [numbersMonth, setNumbersMonth] = useState('');
   const [typeVehicle, setTypeVehicle] = useState('');
-  const [monthlyPayment, setMonthlyPayment] = useState([]);
+  const [mensualidad, setMensualidad] = useState([]);
 
   let token = JSON.parse(localStorage.getItem('token'))
 
   let typeValue = {
-    1: 20000,
-    2: 35000
+    1: 70000,
+    2: 120000
   }
 
-  function getMonthlyPayment() {
+  function getMensualidad() {
     fetch(apiMensualidad, {
       method: 'GET',
       headers: {
@@ -29,62 +33,83 @@ function Mensualidad() {
       }
     })
       .then(response => response.json())
-      .then(result => console.log(result))
+      .then(result => {
+        const resultado = result.result;
+        let array = []
+
+        resultado.map(item => {
+          if (item.parkingTypeId === 2) {
+            array.push(item);
+          }
+        })
+
+        setMensualidad(array);
+      })
       .catch(error => console.error(error))
   }
 
   useEffect(() => {
-    getMonthlyPayment()
+    getMensualidad()
   }, [])
 
+  function handleSubmit(e) {
+    e.preventDefault();
 
-  // function handleSubmit(e) {
-  //   e.preventDefault();
+    let initialDate = new Date(startDate);
+    initialDate.setDate(initialDate.getDate() + 1)
+    let endDate = new Date(initialDate);
+    endDate = new Date(endDate.setMonth(endDate.getMonth() + parseInt(numbersMonth)));
 
-  //   let initialDate = new Date(startDate);
-  //   initialDate.setDate(initialDate.getDate() + 1)
-  //   let endDate = new Date(initialDate);
-  //   endDate = new Date(endDate.setMonth(endDate.getMonth() + parseInt(numbersMonth)));
+    const regExPlate = /^[A-Za-z]{3}[A-Za-z0-9]{3}$/;
 
-  //   const regExPlate = /^[A-Za-z]{3}[A-Za-z0-9]{3}$/;
+    let pago;
 
-  //   let newMonthlyPayment = {
-  //     plate: plate,
-  //     initialDate: initialDate,
-  //     endDate: endDate,
-  //     months: parseInt(numbersMonth),
-  //     type: parseInt(typeVehicle)
-  //   }
+    if (typeVehicle == 1) {
+      pago = typeValue[1] * numbersMonth;
+    } else {
+      pago = typeValue[2] * numbersMonth;
+    }
 
-  //   if (!plate || !startDate || !numbersMonth || !typeVehicle) {
-  //     alertNotification('Error!', 'Rellene todos los campos', 'error');
-  //     return;
-  //   }
-  //   if (!regExPlate.test(plate)) {
-  //     alertNotification('Error!', 'Digite una placa correcta', 'error');
-  //     return;
-  //   }
+    if (!plate || !startDate || !numbersMonth || !typeVehicle) {
+      alertNotification('Error!', 'Rellene todos los campos', 'error');
+      return;
+    }
 
-  //   if (initialDate <= new Date()) {
-  //     alertNotification('Error!', 'Ingrese una fecha correcta', 'error');
-  //     return;
-  //   }
+    if (!regExPlate.test(plate)) {
+      alertNotification('Error!', 'Digite una placa correcta', 'error');
+      return;
+    }
 
-  //   //   let existPlate = monthlyPayment.find(item => plate === item.plate);
-  //   //   if (!existPlate) {
-  //   //     createMessage(newMonthlyPayment)
-  //   //   } else {
-  //   //     alertNotification('¡Error', 'la placa existe', 'error');
-  //   //   }
-  //   // } else {
-  //   //   
-  //   // }
-  // }
+    if (initialDate <= new Date()) {
+      alertNotification('Error!', 'Ingrese una fecha correcta', 'error');
+      return;
+    }
 
-  function createMessage(newMonthlyPayment) {
+    let existPlate = mensualidad.find(item => plate === item.plate);
+    if (existPlate) {
+      alertNotification('¡Error', 'la placa existe', 'error');
+      return;
+    }
+
+
+    let newMensualidad = {
+      parkingTypeId: 2,
+      plate: plate.toUpperCase(),
+      entryDate: format(initialDate, 'yyyy-MM-dd HH:mm:ss'),
+      exitDate: format(endDate, 'yyyy-MM-dd HH:mm:ss'),
+      vehicleTypeId: parseInt(typeVehicle),
+      paymet: true,
+      amount: pago
+    }
+
+    createMessage(newMensualidad)
+
+  }
+
+  function createMessage(newMensualidad) {
     Swal.fire({
-      title: `¿Desea facturar ${newMonthlyPayment.plate}?`,
-      html: `<h5>Tiempo: ${newMonthlyPayment.months} Meses</h5> <h5>Total: $${typeValue[newMonthlyPayment.type] * newMonthlyPayment.months}</h5>`,
+      title: `¿Desea facturar ${newMensualidad.plate}?`,
+      html: `<h5>Tiempo: ${differenceInMonths(newMensualidad.exitDate, newMensualidad.entryDate)} Meses</h5> <h5>Total: $${newMensualidad.amount}</h5>`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -92,20 +117,25 @@ function Mensualidad() {
       confirmButtonText: "Sí, facturar"
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(apiMonthlyPayment, {
+        fetch(apiMensualidad, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token.accessToken}`
           },
-          body: JSON.stringify(newMonthlyPayment)
-        }).then(() => {
-          alertNotification('¡Exitoso!', 'Mensualida creada correctamente', 'success');
-          getMonthlyPayment();
-          setPlate('');
-          setStartDate('');
-          setNumbersMonth('');
-          setTypeVehicle('');
+          body: JSON.stringify(newMensualidad)
         })
+          .then(response => response.json())
+          .then(data => {
+            setPlate('');
+            setStartDate('');
+            setNumbersMonth('');
+            setTypeVehicle('');
+
+            alertNotification('Éxito', data.message, 'success');
+
+            getMensualidad();
+          })
       }
     });
   }
@@ -120,7 +150,7 @@ function Mensualidad() {
             <h1 className="form-title">
               Registro de mensualidades
             </h1>
-            <form id="formularioRegistro" >
+            <form id="formularioRegistro" onSubmit={handleSubmit}>
               <div className="form-grid">
                 <div className="div-plate form-group">
                   <input
@@ -185,6 +215,46 @@ function Mensualidad() {
               </div>
             </form>
           </div>
+          <table className="w-full whitespace-no-wrap">
+            <thead>
+              <tr className="text-xs font-semibold tracking-wide text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                {header.map((element, index) => {
+                  return (
+                    <th className="px-4 py-3" key={index}>
+                      {element}
+                    </th>
+                  );
+                })}
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+              {
+                !mensualidad.length ? (
+                  <tr>
+                    <td colSpan="5">
+                      <div className="flex justify-center items-center py-6">
+                        <span className="loader"></span>
+                      </div>
+                    </td>
+                  </tr>
+                ) : (
+                  mensualidad.map((row) => (
+                    <tr className="text-gray-700 dark:text-gray-400" key={row.id}>
+                      <th className="px-4 py-3">{row.plate}</th>
+                      <th className="px-4 py-3">{row.exitDate}</th>
+                      <th className="px-4 py-3">{row.entryDate}</th>
+                      <th className="px-4 py-3">
+                        <div className="flex p-4 justify-center">
+                          <button onClick={() => eliminarUsuario(row.id)} className="flex items-center gap-2 px-3 py-2 bg-red-600 text-white rounded hover:bg-red-700">
+                            <Trash2 className="w-5 h-5" />
+                          </button>
+                        </div>
+                      </th>
+                    </tr>
+                  ))
+                )}
+            </tbody>
+          </table>
         </main>
       </div>
     </section>
