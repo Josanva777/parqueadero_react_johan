@@ -63,30 +63,9 @@ function LateralNav() {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/reserva" className={navLinkClass}>
-              <MdOutlineEventAvailable className="iconReserva" />
-                <span>Reserva</span>
-              </NavLink>
-            </li>
-            <li>
               <NavLink to="/reporte" className={navLinkClass}>
                 <HiOutlineDocumentReport className="iconReporte" />
                 <span>Reporte</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/ayuda" className={navLinkClass}>
-                <span>Ayuda</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/politicas" className={navLinkClass}>
-                <span>Politicas</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/tablas" className={navLinkClass}>
-                <span>Tablas</span>
               </NavLink>
             </li>
           </ul>
