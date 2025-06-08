@@ -1,3 +1,24 @@
 .colorlogo{
     background: rgba(129, 90, 213, 0.60);
 }
+
+.loader-login {
+    width: 20px;
+    height: 20px;
+    border: 2px solid;
+    border-color: white transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    margin-left: 5px;
+  }
+  
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  } 
