@@ -104,7 +104,7 @@ function LateralNav() {
               </Link>
             )} */}
             {
-              rol === 'administrador'
+              rol === 'Administrador'
                 ? (
                   <Link to="/formularioregistro" className="sidebar-footer-link">
                     Crear cuenta
