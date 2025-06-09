@@ -1,5 +1,6 @@
 const apiMensualidad = 'http://localhost:8081/api/records';
-import { alertNotification } from '../helpers/funciones';
+const apiVehiculo = 'http://localhost:8081/api/vehicle_types';
+import { alertNotification, alertaConfirmar } from '../helpers/funciones';
 import LateralNav from '../components/LateralNav';
 import { useEffect, useState } from 'react';
 import Header from '../components/Header';
@@ -9,20 +10,16 @@ import './Mensualidades.css';
 import { Trash2 } from 'lucide-react';
 
 function Mensualidad() {
-  let header = [ 'PLACA', 'INICIO', 'FIN', 'ACCIONES'];
+  let header = ['PLACA', 'INICIO', 'FIN', 'VEHICULO', 'MONTO', 'ACCIONES'];
 
   const [plate, setPlate] = useState('');
   const [startDate, setStartDate] = useState(new Date());
   const [numbersMonth, setNumbersMonth] = useState('');
   const [typeVehicle, setTypeVehicle] = useState('');
   const [mensualidad, setMensualidad] = useState([]);
+  const [vehiculos, setVehiculos] = useState([]);
 
   let token = JSON.parse(localStorage.getItem('token'))
-
-  let typeValue = {
-    1: 70000,
-    2: 120000
-  }
 
   function getMensualidad() {
     fetch(apiMensualidad, {
@@ -48,8 +45,24 @@ function Mensualidad() {
       .catch(error => console.error(error))
   }
 
+  function getVehiculo() {
+    fetch(apiVehiculo, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token.accessToken}`,
+        'Accept': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(result => {
+        setVehiculos(result.result)
+      })
+      .catch(error => console.error(error))
+  }
+
   useEffect(() => {
-    getMensualidad()
+    getMensualidad();
+    getVehiculo();
   }, [])
 
   function handleSubmit(e) {
@@ -64,11 +77,11 @@ function Mensualidad() {
 
     let pago;
 
-    if (typeVehicle == 1) {
-      pago = typeValue[1] * numbersMonth;
-    } else {
-      pago = typeValue[2] * numbersMonth;
-    }
+    vehiculos.map(item => {
+      if (item.id == typeVehicle) {
+        pago = (item.monthlyRate * numbersMonth)
+      }
+    })
 
     if (!plate || !startDate || !numbersMonth || !typeVehicle) {
       alertNotification('Error!', 'Rellene todos los campos', 'error');
@@ -138,6 +151,10 @@ function Mensualidad() {
           })
       }
     });
+  }
+
+  function eliminarRegistro(id) {
+    alertaConfirmar(id, getMensualidad, apiMensualidad)
   }
 
   return (
@@ -228,31 +245,38 @@ function Mensualidad() {
               </tr>
             </thead>
             <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-              {
-                !mensualidad.length ? (
-                  <tr>
-                    <td colSpan="5">
-                      <div className="flex justify-center items-center py-6">
-                        <span className="loader"></span>
-                      </div>
-                    </td>
-                  </tr>
-                ) : (
-                  mensualidad.map((row) => (
+              {!mensualidad.length ? (
+                <tr>
+                  <td colSpan="5">
+                    <div className="flex justify-center items-center py-6">
+                      <span className="loader"></span>
+                    </div>
+                  </td>
+                </tr>
+              ) : (
+                mensualidad.map((row) => {
+                  const vehiculo = vehiculos.find(item => item.id === row.vehicleTypeId);
+                  return (
                     <tr className="text-gray-700 dark:text-gray-400" key={row.id}>
-                      <th className="px-4 py-3">{row.plate}</th>
-                      <th className="px-4 py-3">{row.exitDate}</th>
-                      <th className="px-4 py-3">{row.entryDate}</th>
-                      <th className="px-4 py-3">
+                      <td className="px-4 py-3">{row.plate}</td>
+                      <td className="px-4 py-3">{row.exitDate}</td>
+                      <td className="px-4 py-3">{row.entryDate}</td>
+                      <td className="px-4 py-3">{vehiculo.vehicleType}</td>
+                      <td className="px-4 py-3">{`$${row.amount}`}</td>
+                      <td className="px-4 py-3">
                         <div className="flex p-4 justify-center">
-                          <button onClick={() => eliminarUsuario(row.id)} className="flex items-center gap-2 px-3 py-2 bg-red-600 text-white rounded hover:bg-red-700">
+                          <button
+                            onClick={() => eliminarRegistro(row.id)}
+                            className="flex items-center gap-2 px-3 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+                          >
                             <Trash2 className="w-5 h-5" />
                           </button>
                         </div>
-                      </th>
+                      </td>
                     </tr>
-                  ))
-                )}
+                  );
+                })
+              )}
             </tbody>
           </table>
         </main>
