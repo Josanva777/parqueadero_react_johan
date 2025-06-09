@@ -15,6 +15,25 @@ function LateralNav() {
   const isEntradaRoute = location.pathname === "/Entrada";
   const redirection = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const [rol, setRol] = useState('');
+  let token = JSON.parse(localStorage.getItem('token'))
+
+  console.log(token)
+
+
+  fetch('http://localhost:8081/api/auth/profile', {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token.accessToken}`,
+      'Accept': 'application/json'
+    }
+  })
+    .then(response => response.json())
+    .then(result => {
+      setRol(result.result.rol);
+    })
+    .catch(error => console.error(error))
+
 
   const toggleMenu = () => {
     setIsOpen((prev) => !prev);
@@ -62,19 +81,41 @@ function LateralNav() {
                 <span>Mensualidad</span>
               </NavLink>
             </li>
-            <li>
-              <NavLink to="/reporte" className={navLinkClass}>
-                <HiOutlineDocumentReport className="iconReporte" />
-                <span>Reporte</span>
-              </NavLink>
-            </li>
+            {
+              rol === 'administrador'
+                ? (
+                  <li>
+                    <NavLink to="/reporte" className={navLinkClass}>
+                      <HiOutlineDocumentReport className="iconReporte" />
+                      <span>Reporte</span>
+                    </NavLink>
+                  </li>
+                ) : (
+                  <div></div>
+                )
+
+            }
+
           </ul>
           <div className="sidebar-footer">
-            {!isRegistroRoute && (
+            {/* {!isRegistroRoute && (
               <Link to="/formularioregistro" className="sidebar-footer-link">
                 Crear cuenta
               </Link>
-            )}
+            )} */}
+            {
+              rol === 'administrador'
+                ? (
+                  <Link to="/formularioregistro" className="sidebar-footer-link">
+                    Crear cuenta
+                  </Link>
+                ) : (
+                  <div></div>
+                )
+
+            }
+
+
           </div>
         </div>
       </aside>
