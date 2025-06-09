@@ -21,28 +21,28 @@ function Mensualidad() {
 
   let token = JSON.parse(localStorage.getItem('token'))
 
-  function getMensualidad() {
-    fetch(apiMensualidad, {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token.accessToken}`,
-        'Accept': 'application/json'
-      }
-    })
-      .then(response => response.json())
-      .then(result => {
-        const resultado = result.result;
-        let array = []
-
-        resultado.map(item => {
-          if (item.parkingTypeId === 2) {
-            array.push(item);
-          }
-        })
-
-        setMensualidad(array);
+    function getMensualidad() {
+      fetch(apiMensualidad, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token.accessToken}`,
+          'Accept': 'application/json'
+        }
       })
-      .catch(error => console.error(error))
+        .then(response => response.json())
+        .then(result => {
+          const resultado = result.result;
+          let array = []
+
+          resultado.map(item => {
+            if (item.parkingTypeId === 2) {
+              array.push(item);
+            }
+          })
+
+          setMensualidad(array);
+        })
+        .catch(error => console.error(error))
   }
 
   function getVehiculo() {
