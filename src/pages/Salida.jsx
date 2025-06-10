@@ -1,5 +1,5 @@
 import Header from "../components/Header";
-import LateralNav from "../components/LateralNav";
+import LateralNav from "../components/LateralNav.jsx";
 import "./Salida.css";
 import { useEffect, useState } from "react";
 import { Edit, Trash2 } from "lucide-react";

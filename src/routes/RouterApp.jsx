@@ -1,8 +1,6 @@
 import Login from '../pages/Login';
 import RutaProtegida from '../components/RutaProtegida.jsx';
 import NotFound from '../pages/NotFound.jsx';
-import TableExample from '../pages/TableExample.jsx';
-import Blank from '../pages/Blank.jsx';
 import Disponibilidad from '../pages/Disponibilidad.jsx';
 import Entrada from '../pages/Entrada.jsx';
 import Salida from '../pages/Salida.jsx';
@@ -10,7 +8,7 @@ import Mensualidad from '../pages/Mensualidad.jsx';
 import Reporte from '../pages/Reportes.jsx';
 import CreateAccount from '../pages/CreateAccount.jsx';
 import EditarUsuario from '../pages/EditarUsuario.jsx';
-import TipoVehiculo from '../pages/tipoVehicle/TipoVehiculo.jsx';
+import TipoVehiculo from '../pages/TipoVehiculo.jsx';
 import RutaProtegidaAdmin from '../components/RutaProtegiaAdmin.jsx';
 import Forbidden from '../pages/Forbidden.jsx';
 
@@ -45,7 +43,7 @@ export let routes = [
   },
   {
     path: '/editar-usuario/:id',
-    element: <RutaProtegida protect={<EditarUsuario />} />,
+    element: <RutaProtegidaAdmin protect={<EditarUsuario />} />,
   },
   {
     path: '/tipo-vehiculos',
@@ -56,11 +54,7 @@ export let routes = [
     element: <RutaProtegida protect={<Forbidden />} />,
   },
   {
-    path: '/blank',
-    element: <Blank />,
-  },
-  {
     path: '*',
-    element: <NotFound />,
+    element: <RutaProtegida protect={<NotFound />} />,
   },
 ];

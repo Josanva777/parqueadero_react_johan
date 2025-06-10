@@ -6,20 +6,14 @@ import { FiMenu, FiX } from "react-icons/fi";
 import { MdOutlineCalendarMonth } from "react-icons/md";
 import { LuDoorOpen } from "react-icons/lu";
 import { RiCalendarTodoLine } from "react-icons/ri";
-import { NavLink, Link, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, Link} from "react-router-dom";
 import { useState } from "react";
+import { BsFillCarFrontFill } from "react-icons/bs";
 
 function LateralNav() {
-  const location = useLocation();
-  const isRegistroRoute = location.pathname === "/formularioregistro";
-  const isEntradaRoute = location.pathname === "/Entrada";
-  const redirection = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [rol, setRol] = useState('');
   let token = JSON.parse(localStorage.getItem('token'))
-
-  console.log(token)
-
 
   fetch('http://localhost:8081/api/auth/profile', {
     method: 'GET',
@@ -82,40 +76,35 @@ function LateralNav() {
               </NavLink>
             </li>
             {
-              rol === 'administrador'
-                ? (
-                  <li>
-                    <NavLink to="/reporte" className={navLinkClass}>
-                      <HiOutlineDocumentReport className="iconReporte" />
-                      <span>Reporte</span>
-                    </NavLink>
-                  </li>
-                ) : (
-                  <div></div>
-                )
-
+              rol === 'Administrador' ?
+                (
+                  <>
+                    <li>
+                      <NavLink to="/reporte" className={navLinkClass}>
+                        <HiOutlineDocumentReport className="iconReporte" />
+                        <span>Reporte</span>
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink to="/tipo-vehiculos" className={navLinkClass}>
+                        <BsFillCarFrontFill className="iconReporte" />
+                        <span>Tipo vehiculos</span>
+                      </NavLink>
+                    </li>
+                  </>
+                ) : ('')
             }
 
           </ul>
           <div className="sidebar-footer">
-            {/* {!isRegistroRoute && (
-              <Link to="/formularioregistro" className="sidebar-footer-link">
-                Crear cuenta
-              </Link>
-            )} */}
             {
               rol === 'Administrador'
                 ? (
                   <Link to="/formularioregistro" className="sidebar-footer-link">
                     Crear cuenta
                   </Link>
-                ) : (
-                  <div></div>
-                )
-
+                ) : ('')
             }
-
-
           </div>
         </div>
       </aside>

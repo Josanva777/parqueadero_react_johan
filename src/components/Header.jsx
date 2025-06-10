@@ -3,7 +3,7 @@ import { FiLogOut } from "react-icons/fi";
 import { BsSun, BsMoon } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { alertaCerrarSesion } from "../helpers/funciones";
+import { alertaCerrarSesion } from "../helpers/funciones.js";
 import imagenes from "../assets/img/imagenes.js";
 
 function Header() {

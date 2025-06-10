@@ -8,7 +8,7 @@ export function alertNotification(title, message, icon) {
     text: message,
     icon: icon,
     showConfirmButton: false,
-    timer: 1100
+    timer: 2000
   });
 }
 
