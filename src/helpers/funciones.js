@@ -8,7 +8,7 @@ export function alertNotification(title, message, icon) {
     text: message,
     icon: icon,
     showConfirmButton: false,
-    timer: 1100
+    timer: 2000
   });
 }
 
@@ -73,4 +73,7 @@ export function alertaCerrarSesion(navigate) {
       navigate("/");
     }
   });
+}
+export function formatCOP(value) {
+  return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }).format(value);
 }

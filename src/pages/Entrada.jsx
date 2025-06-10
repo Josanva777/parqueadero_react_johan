@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
-import LateralNav from "../components/LateralNav";
+import LateralNav from "../components/LateralNav.jsx";
 import { Edit, Trash2 } from 'lucide-react';
 import Swal from "sweetalert2";
 import { alertNotification, alertaConfirmar } from '../helpers/funciones.js';

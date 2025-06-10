@@ -6,8 +6,9 @@ import { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import { format, differenceInMonths } from 'date-fns';
 import Swal from "sweetalert2";
-import './Mensualidades.css';
+import './Mensualidad.css';
 import { Trash2 } from 'lucide-react';
+import { formatCOP } from '../helpers/funciones';
 
 function Mensualidad() {
   let header = ['PLACA', 'INICIO', 'FIN', 'VEHICULO', 'MONTO', 'ACCIONES'];
@@ -21,28 +22,28 @@ function Mensualidad() {
 
   let token = JSON.parse(localStorage.getItem('token'))
 
-    function getMensualidad() {
-      fetch(apiMensualidad, {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${token.accessToken}`,
-          'Accept': 'application/json'
-        }
-      })
-        .then(response => response.json())
-        .then(result => {
-          const resultado = result.result;
-          let array = []
+  function getMensualidad() {
+    fetch(apiMensualidad, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token.accessToken}`,
+        'Accept': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(result => {
+        const resultado = result.result;
+        let array = []
 
-          resultado.map(item => {
-            if (item.parkingTypeId === 2) {
-              array.push(item);
-            }
-          })
-
-          setMensualidad(array);
+        resultado.map(item => {
+          if (item.parkingTypeId === 2) {
+            array.push(item);
+          }
         })
-        .catch(error => console.error(error))
+
+        setMensualidad(array);
+      })
+      .catch(error => console.error(error))
   }
 
   function getVehiculo() {
@@ -65,6 +66,7 @@ function Mensualidad() {
     getVehiculo();
   }, [])
 
+
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -82,6 +84,7 @@ function Mensualidad() {
         pago = (item.monthlyRate * numbersMonth)
       }
     })
+
 
     if (!plate || !startDate || !numbersMonth || !typeVehicle) {
       alertNotification('Error!', 'Rellene todos los campos', 'error');
@@ -256,13 +259,14 @@ function Mensualidad() {
               ) : (
                 mensualidad.map((row) => {
                   const vehiculo = vehiculos.find(item => item.id === row.vehicleTypeId);
+
                   return (
                     <tr className="text-gray-700 dark:text-gray-400" key={row.id}>
                       <td className="px-4 py-3">{row.plate}</td>
                       <td className="px-4 py-3">{row.exitDate}</td>
                       <td className="px-4 py-3">{row.entryDate}</td>
-                      <td className="px-4 py-3">{vehiculo.vehicleType}</td>
-                      <td className="px-4 py-3">{`$${row.amount}`}</td>
+                      <td className="px-4 py-3">{vehiculo.vehicleType ?? ''}</td>
+                      <td className="px-4 py-3">{formatCOP(row.amount)}</td>
                       <td className="px-4 py-3">
                         <div className="flex p-4 justify-center">
                           <button

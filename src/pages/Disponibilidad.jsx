@@ -8,6 +8,7 @@ import './Reportes.css'
 import { format, subDays, parseISO } from 'date-fns';
 import { es } from 'date-fns/locale';
 
+
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend, ArcElement);
 
 const apiReportes = 'http://localhost:8081/api/records';

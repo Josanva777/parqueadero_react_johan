@@ -1,7 +1,7 @@
 import Header from "../components/Header";
 import LateralNav from "../components/LateralNav";
 
-function NotFound() {
+function Forbidden() {
   return (
     <div className="page-container">
       <Header />
@@ -9,16 +9,16 @@ function NotFound() {
         <LateralNav />
         <main className="content-container text-center">
           <h1 class="text-6xl font-semibold text-gray-700 dark:text-gray-200">
-            404
+            403
           </h1>
           <p class="text-gray-700 dark:text-gray-300">
-            Página no encontrada. Verifique la dirección.
+            Página protegida. No tienes acceso a esta página.
           </p>
-          <a href="/">Ir al inicio</a>
+          <a href="/disponibilidad">Ir al inicio</a>
         </main>
       </div>
     </div>
   )
 }
 
-export default NotFound;
+export default Forbidden;
