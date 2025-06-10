@@ -1,7 +1,7 @@
 import "./Header.css";
 import { FiLogOut } from "react-icons/fi";
 import { BsSun, BsMoon } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { alertaCerrarSesion } from "../helpers/funciones.js";
 import imagenes from "../assets/img/imagenes.js";
@@ -25,13 +25,13 @@ function Header() {
   return (
     <header className="header-container">
       <div className="header-content">
-        <div className="header-logo">
+        <NavLink to="/disponibilidad" className="header-logo">
           <img
             src={imagenes.img3}
             alt="Logo parqueadero"
             className="header-logo-img"
           />
-        </div>
+        </NavLink>
         <div className="header-actions">
           <button
             className="header-darkmode-toggle"

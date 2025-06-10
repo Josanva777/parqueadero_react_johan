@@ -190,44 +190,42 @@ function Mensualidad() {
                     value={startDate}
                     onChange={e => setStartDate(e.target.value)}
                   />
-                </div>
-                <div className="mt-2">
-                  <label
-                    className="inline-flex items-center text-gray-600 dark:text-gray-400"
-                  >
+                  <div className="mt-2">
+                    <label className="inline-flex items-center text-gray-600 dark:text-gray-400">
+                      <input
+                        type="radio"
+                        className="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+                        name="accountType"
+                        checked={typeVehicle === '1'}
+                        onChange={e => setTypeVehicle(e.target.value)}
+                        value="1"
+                      />
+                      <span className="ml-2">Moto</span>
+                    </label>
+                    <label
+                      className="inline-flex items-center ml-6 text-gray-600 dark:text-gray-400"
+                    >
+                      <input
+                        type="radio"
+                        className="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+                        name="accountType"
+                        value="2"
+                        checked={typeVehicle === '2'}
+                        onChange={e => setTypeVehicle(e.target.value)}
+                      />
+                      <span className="ml-2">Carro</span>
+                    </label>
+                  </div>
+                  <div className="mt-1">
+                    <label>Meses a pagar</label>
                     <input
-                      type="radio"
-                      className="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                      name="accountType"
-                      checked={typeVehicle === '1'}
-                      onChange={e => setTypeVehicle(e.target.value)}
-                      value="1"
+                      type="number"
+                      name="number"
+                      min="1"
+                      value={numbersMonth}
+                      onChange={e => setNumbersMonth(e.target.value)}
                     />
-                    <span className="ml-2">Moto</span>
-                  </label>
-                  <label
-                    className="inline-flex items-center ml-6 text-gray-600 dark:text-gray-400"
-                  >
-                    <input
-                      type="radio"
-                      className="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                      name="accountType"
-                      value="2"
-                      checked={typeVehicle === '2'}
-                      onChange={e => setTypeVehicle(e.target.value)}
-                    />
-                    <span className="ml-2">Carro</span>
-                  </label>
-                </div>
-                <div className="form-group">
-                  <label>Meses a pagar</label>
-                  <input
-                    type="number"
-                    name="number"
-                    min="1"
-                    value={numbersMonth}
-                    onChange={e => setNumbersMonth(e.target.value)}
-                  />
+                  </div>
                 </div>
               </div>
               <div className="form-button">
@@ -247,7 +245,7 @@ function Mensualidad() {
                 })}
               </tr>
             </thead>
-            <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+            <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800 text-center">
               {!mensualidad.length ? (
                 <tr>
                   <td colSpan="5">
@@ -265,7 +263,7 @@ function Mensualidad() {
                       <td className="px-4 py-3">{row.plate}</td>
                       <td className="px-4 py-3">{row.exitDate}</td>
                       <td className="px-4 py-3">{row.entryDate}</td>
-                      <td className="px-4 py-3">{vehiculo.vehicleType ?? ''}</td>
+                      <td className="px-4 py-3">{vehiculo?.vehicleType ?? ''}</td>
                       <td className="px-4 py-3">{formatCOP(row.amount)}</td>
                       <td className="px-4 py-3">
                         <div className="flex p-4 justify-center">

@@ -220,7 +220,7 @@ function Entrada() {
                       ))}
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                  <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800 text-center">
                     {!entradas.length ? (
                       <tr>
                         <td colSpan="5">
