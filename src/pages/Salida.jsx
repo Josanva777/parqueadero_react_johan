@@ -114,7 +114,11 @@ function Salida() {
     const fechaSalida = obtenerFechaHoraActual();
     const horas = calcularHoras(registroEncontrado.entryDate, fechaSalida);
     const regularRate = obtenerRegularRate(registroEncontrado.vehicleTypeId);
-    const monto = horas * regularRate;
+    const days = Math.floor(horas/24);
+    let monto = 0;
+    for(let i = 0; i < days; i++){
+      monto += horas > 5 ? regularRate * 5 : horas * regularRate;
+    }
 
     Swal.fire({
       title: `¿Desea facturar ${registroEncontrado.plate}?`,
@@ -243,14 +247,12 @@ function Salida() {
                           : (horas * regularRate);
 
                         return (
-                          <tr className="text-gray-700 dark:text-gray-400" key={salida.id}>
+                          <tr className="text-gray-700 dark:text-gray-400 text-center" key={salida.id}>
                             <td className="px-4 py-3">{salida.plate}</td>
                             <td className="px-4 py-3">{obtenerTipoParqueo(salida.vehicleTypeId)}</td>
                             <td className="px-4 py-3">{salida.entryDate}</td>
-                            <td className="px-4 py-3">{salida.exitDate || "-"}</td>
-                            <td className="px-4 py-3">
-                              {salida.exitDate ? horas + " horas" : "-"}
-                            </td>
+                            <td className="px-4 py-3">{salida.exitDate ?? "-"}</td>
+                            <td className="px-4 py-3">{horas ? horas + " horas" : "-"}</td>
                             <td className="px-4 py-3">
                               {monto > 0 ? `$${Math.round(monto)}` : "-"}
                             </td>

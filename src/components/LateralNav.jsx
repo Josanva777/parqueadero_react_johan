@@ -52,7 +52,7 @@ function LateralNav() {
         <div className="sidebar-content">
           <ul className="sidebar-menu">
             <li>
-              <NavLink to="/disponibilidad">
+              <NavLink to="/disponibilidad" className={navLinkClass}>
                 <RiCalendarTodoLine className="iconDisponibilidad" />
                 <span>Disponibilidad</span>
               </NavLink>
@@ -87,7 +87,7 @@ function LateralNav() {
                     </li>
                     <li>
                       <NavLink to="/tipo-vehiculos" className={navLinkClass}>
-                        <BsFillCarFrontFill className="iconReporte" />
+                        <BsFillCarFrontFill className="iconVehicle" />
                         <span>Tipo vehiculos</span>
                       </NavLink>
                     </li>

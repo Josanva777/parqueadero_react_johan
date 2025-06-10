@@ -18,3 +18,10 @@
   height: 10rem;
   gap: 1rem;
 }
+
+.form-group input[type="radio"] {
+  width: 10px;
+}
+.dispo-title-light-effect {
+  margin-bottom: 0;
+}
