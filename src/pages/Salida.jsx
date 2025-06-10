@@ -118,7 +118,7 @@ function Salida() {
 
     Swal.fire({
       title: `¿Desea facturar ${registroEncontrado.plate}?`,
-      html: `<h5>Tiempo: ${horas} hora(s)</h5><h5>Total: $${monto.toFixed(2)}</h5>`,
+      html: `<h5>Tiempo: ${horas} hora(s)</h5><h5>Total: $${Math.round(monto)}</h5>`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -252,7 +252,7 @@ function Salida() {
                               {salida.exitDate ? horas + " horas" : "-"}
                             </td>
                             <td className="px-4 py-3">
-                              {monto > 0 ? `$${monto.toFixed(2)}` : "-"}
+                              {monto > 0 ? `$${Math.round(monto)}` : "-"}
                             </td>
                             <td className="px-4 py-3">
                               {salida.payment ? "Pagado" : "Pendiente"}
