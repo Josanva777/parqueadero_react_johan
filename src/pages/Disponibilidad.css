@@ -1,0 +1,186 @@
+.dispo-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #222;
+    text-align: center;
+    }
+
+    .dark .dispo-title {
+    color: #e5e7eb;
+    }
+
+    .dispo-title-light-effect {
+  font-size: 2.3rem;
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 2.2rem;
+  letter-spacing: 0.5px;
+  color: #222;
+  background: none;
+  border-radius: 0.5rem;
+  padding: 0.7rem 0;
+  box-shadow: none;
+}
+
+.dispo-title-light-effect span {
+  color: #222;
+  background: none;
+  font-weight: inherit;
+  font-size: inherit;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: unset;
+  background-clip: unset;
+  animation: none;
+}
+
+.dark .dispo-title-light-effect,
+.dark .dispo-title-light-effect span {
+  color: #fff;
+  background: none;
+}
+
+    .dispo-table-section {
+    margin-bottom: 2rem;
+    overflow-x: auto;
+    }
+
+    .dispo-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  color: #222;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  transition: background 0.2s, color 0.2s;
+}
+
+.dark .dispo-table {
+  background: #23283a;
+  color: #e5e7eb;
+}
+
+.dispo-table th, .dispo-table td {
+  padding: 0.7rem 1rem;
+  border: 1px solid #e0e0e0;
+  text-align: center;
+  background: inherit;
+  transition: background 0.2s, color 0.2s;
+}
+
+.dark .dispo-table th, .dark .dispo-table td {
+  border: 1px solid #353a4a;
+  background: #23283a;
+  color: #e5e7eb;
+}
+
+.dispo-table th {
+  background: #f5f5f5;
+  font-weight: bold;
+  color: #222;
+}
+
+.dark .dispo-table th {
+  background: #23283a;
+  color: #b5b8c5;
+}
+
+.dispo-table tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+.dark .dispo-table tr:nth-child(even) {
+  background: #23283a;
+}
+
+.dispo-table tr:hover {
+  background: #eaeaea;
+  transition: background 0.2s;
+}
+
+.dark .dispo-table tr:hover {
+  background: #2c3144;
+  transition: background 0.2s;
+}
+
+    .dispo-row-selected {
+    background: #e9d8fd !important;
+    font-weight: bold;
+    }
+
+    .dark .dispo-row-selected {
+    background: #805ad5 !important;
+    color: #fff;
+    }
+
+    .dispo-btn {
+    background: #f3f3f3;
+    border: none;
+    border-radius: 6px;
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: #805ad5;
+    transition: background 0.2s, color 0.2s;
+    }
+
+    .dispo-btn:hover {
+    background: #805ad5;
+    color: #fff;
+    }
+
+    .dispo-chart-section {
+    margin: 2rem auto 0 auto;
+    max-width: 600px;
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    }
+
+    .dark .dispo-chart-section {
+    background: #23283a;
+    color: #e5e7eb;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.7);
+    }
+
+    .dispo-chart-label {
+    text-align: center;
+    margin-top: 0.5rem;
+    font-size: 0.98rem;
+    color: #805ad5;
+    font-weight: 500;
+    }
+
+    .dark .dispo-chart-label {
+    color: #d6bcfa;
+    }
+
+    .dispo-chart-resumen {
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    color: #222;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    align-items: flex-start;
+    }
+
+    .dark .dispo-chart-resumen {
+    color: #e5e7eb;
+    }
+
+    @media (max-width: 600px) {
+    .dispo-chart-section {
+        padding: 1rem 0.5rem;
+    }
+    .dispo-table th, .dispo-table td {
+        padding: 0.5rem 0.3rem;
+        font-size: 0.9rem;
+    }
+    }
